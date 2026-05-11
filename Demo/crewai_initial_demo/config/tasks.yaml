@@ -1,0 +1,40 @@
+news_scoping:
+  description: >
+    使用实时网络搜索，搜集 {game} 的最新动态与高可信来源信息。要求：
+    1) 覆盖官方渠道、权威媒体、头部社区/论坛（以可追溯链接为准）
+    2) 尽量限定近 {time_range} 的内容（若工具不支持严格时间过滤，则在结果中标注“时间不确定”）
+    3) 返回不少于 {max_results} 条候选资讯（允许包含重复与低可信条目，供后续分析过滤）
+  expected_output: >
+    一份结构化清单（Markdown 或分点文本均可），每条包含：标题、摘要、来源站点、URL、发布时间（如未知则写 Unknown）。
+  agent: researcher
+
+sentiment_trend_analysis:
+  description: >
+    对 news_scoping 的输出进行深度分析。要求：
+    1) 信息去重：合并相同或高度相似的条目（标题相似、同 URL、同源转载等）
+    2) 真实性评估：给出可信度分级（High/Medium/Low）与理由；尽量多源交叉印证
+    3) 情绪与趋势：提炼主流观点、情绪倾向、争议点、潜在风险与不确定性
+    4) 所有结论必须能回链到来源 URL（至少以“证据条目编号/链接”方式引用）
+  expected_output: >
+    结构化分析报告（建议 Markdown），包含：去重后的条目表、可信度分级说明、趋势与影响、风险提示、引用链接汇总。
+  agent: analyst
+
+final_briefing_drafting:
+  description: >
+    将 sentiment_trend_analysis 的结果写成可直接发布的行业简报（面向行业从业者）。
+    要求：结构清晰、信息密度高、措辞谨慎、引用来源完整。当前年份为 {current_year}。
+  expected_output: >
+    标准 Markdown 文档，包含：标题、摘要、关键动态、趋势与影响、风险与不确定性、参考来源（URL 列表）。
+  agent: editor
+  output_file: outputs/briefing.md
+
+social_briefing_packaging:
+  description: >
+    基于最终行业简报，产出社媒内容包。要求：
+    1) 微博：短句+高密度信息，包含 2-4 个话题标签建议（不必真实发布），并给出引用链接策略
+    2) 小红书：包含标题（可讨论向，但避免夸张）、分点内容、互动引导
+    3) 配图提示词：给出 3-5 个可选方向（封面图、信息图、时间线图等），每个方向给出可直接用于文生图的提示词
+  expected_output: >
+    输出三段内容：微博文案、小红书文案、配图提示词。用 Markdown 分节组织。
+  agent: social_publisher
+  output_file: outputs/social_pack.md

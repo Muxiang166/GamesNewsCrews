@@ -1,0 +1,137 @@
+sources:
+  - id: nintendo
+    name: Nintendo Official
+    kind: official
+    url: https://www.nintendo.com/
+    region: global
+    priority: 100
+    collector: official_site_stub
+    tags: [console, switch, first_party]
+  - id: playstation_blog
+    name: PlayStation Blog
+    kind: official
+    url: https://blog.playstation.com/
+    region: global
+    priority: 95
+    collector: official_site_stub
+    tags: [console, sony, playstation]
+  - id: xbox_wire
+    name: Xbox Wire
+    kind: official
+    url: https://news.xbox.com/
+    region: global
+    priority: 95
+    collector: official_site_stub
+    tags: [console, microsoft, xbox]
+  - id: steam_news
+    name: Steam News
+    kind: official
+    url: https://store.steampowered.com/news/
+    region: global
+    priority: 90
+    collector: official_site_stub
+    tags: [pc, steam]
+  - id: ign
+    name: IGN
+    kind: media
+    url: https://www.ign.com/
+    region: global
+    priority: 85
+    collector: media_site_stub
+    tags: [media, global]
+  - id: gamespot
+    name: GameSpot
+    kind: media
+    url: https://www.gamespot.com/
+    region: global
+    priority: 80
+    collector: media_site_stub
+    tags: [media, global]
+  - id: pc_gamer
+    name: PC Gamer
+    kind: media
+    url: https://www.pcgamer.com/
+    region: global
+    priority: 78
+    collector: media_site_stub
+    tags: [media, pc]
+  - id: eurogamer
+    name: Eurogamer
+    kind: media
+    url: https://www.eurogamer.net/
+    region: global
+    priority: 76
+    collector: media_site_stub
+    tags: [media, global]
+  - id: gamergen
+    name: 游民星空
+    kind: media
+    url: https://www.gamersky.com/
+    region: cn
+    priority: 84
+    collector: media_site_stub
+    tags: [media, cn]
+  - id: ali213
+    name: 游侠网
+    kind: media
+    url: https://www.ali213.net/
+    region: cn
+    priority: 76
+    collector: media_site_stub
+    tags: [media, cn]
+  - id: gamecores
+    name: 机核
+    kind: media
+    url: https://www.gcores.com/
+    region: cn
+    priority: 74
+    collector: media_site_stub
+    tags: [media, cn, community]
+  - id: bilibili
+    name: Bilibili
+    kind: community
+    url: https://www.bilibili.com/
+    region: cn
+    priority: 90
+    collector: browser_stub
+    tags: [community, video, meme, cn]
+  - id: weibo
+    name: 微博
+    kind: community
+    url: https://weibo.com/
+    region: cn
+    priority: 88
+    collector: browser_stub
+    tags: [community, trend, meme, cn]
+  - id: tieba
+    name: 百度贴吧
+    kind: community
+    url: https://tieba.baidu.com/
+    region: cn
+    priority: 72
+    collector: browser_stub
+    tags: [community, forum, cn]
+  - id: xiaoheihe
+    name: 小黑盒
+    kind: community
+    url: https://www.xiaoheihe.cn/
+    region: cn
+    priority: 86
+    collector: app_or_browser_stub
+    tags: [community, pc, meme, cn]
+  - id: taptap
+    name: TapTap
+    kind: community
+    url: https://www.taptap.cn/
+    region: cn
+    priority: 70
+    collector: browser_stub
+    tags: [community, mobile, cn]
+  - id: reddit
+    name: Reddit Gaming
+    kind: community
+    url: https://www.reddit.com/r/gaming/
+    region: global
+    priority: 78
+    collector: community_site_stub
+    tags: [community, forum, meme, global]
