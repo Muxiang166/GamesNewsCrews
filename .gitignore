@@ -28,3 +28,7 @@ LangGraph/service/.pytest_cache/
 # ── IDE / OS ──
 .DS_Store
 Thumbs.db
+
+# ── Local root markdown docs ──
+/*.md
+!/README.md
