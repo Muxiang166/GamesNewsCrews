@@ -1,0 +1,71 @@
+{
+  "_comment": "MEM-003: Agents and review tools must query the SQLite mirror through a read-only whitelist instead of scanning output folders or writing ad-hoc SQL.",
+  "test": "H-MEM-003",
+  "layer": "memory_sql",
+  "scenario": {
+    "description": "A run has been ingested into SQLite. An agent needs to inspect final stories, candidates, notifications, artifacts, and obvious review flags without relying on JSON files still being present.",
+    "input": {
+      "sqlite_db_path": "outputs/langgraph/memory/games_news.sqlite",
+      "run_id": "run_agent_query",
+      "queries": [
+        {
+          "query_type": "stories",
+          "filters": {
+            "theme_section": "microsoft",
+            "limit": 10
+          }
+        },
+        {
+          "query_type": "candidates",
+          "filters": {
+            "lane": "main",
+            "source_id": "gamergen",
+            "limit": 20
+          }
+        },
+        {
+          "query_type": "quality-flags",
+          "filters": {
+            "min_title_chars": 8
+          }
+        }
+      ]
+    },
+    "expected_output": {
+      "schema_version": "agent_db_query_v0",
+      "query_types_supported": [
+        "runs",
+        "summary",
+        "stories",
+        "candidates",
+        "notifications",
+        "artifacts",
+        "quality-flags"
+      ],
+      "safety_properties": {
+        "read_only": true,
+        "no_arbitrary_sql": true,
+        "latest_run_fallback": true,
+        "raw_json_optional": true
+      },
+      "quality_flags": [
+        "short_title",
+        "empty_document_content",
+        "open_notification"
+      ]
+    },
+    "verification": {
+      "module": "games_news_agent.persistence.agent_query",
+      "cli_examples": [
+        "python -m games_news_agent.persistence.agent_query --db-path outputs/langgraph/memory/games_news.sqlite runs --limit 5",
+        "python -m games_news_agent.persistence.agent_query --db-path outputs/langgraph/memory/games_news.sqlite stories --theme microsoft --limit 10",
+        "python -m games_news_agent.persistence.agent_query --db-path outputs/langgraph/memory/games_news.sqlite quality-flags --min-title-chars 8"
+      ],
+      "must_not": [
+        "execute user-supplied SQL strings",
+        "modify publish_status",
+        "require JSON artifacts to be present after ingest"
+      ]
+    }
+  }
+}

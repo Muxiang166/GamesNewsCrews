@@ -1,0 +1,25 @@
+{
+  "_comment": "Harness case H-COL-002: FetchResult for a source that returns HTTP 404 on the first attempt. The error is marked retryable=false so the collector immediately stops retrying and records the failure. Used to verify that 4xx client errors are not retried.",
+  "source_id": "rss-polygon-removed",
+  "source_url": "https://www.polygon.com/rss/news/index.xml",
+  "fetched_at": "2026-06-16T10:05:00Z",
+  "ok": false,
+  "http_status": 404,
+  "attempts": 1,
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "timestamp": "2026-06-16T10:05:00Z",
+      "ok": false,
+      "http_status": 404,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 404: Not Found",
+      "error_detail": "Server returned 404 Not Found for URL https://www.polygon.com/rss/news/index.xml. Response body (first 256 chars): '<!DOCTYPE html><html lang=\"en\"><head><title>404 - Page Not Found | Polygon</title>...'",
+      "retryable": false,
+      "backoff_seconds": null
+    }
+  ],
+  "total_elapsed_seconds": 1.8,
+  "final_url": "https://www.polygon.com/rss/news/index.xml",
+  "diagnostic_note": "Source URL may have been moved or deprecated. The RSS feed path '/rss/news/index.xml' no longer exists on the Polygon domain. Consider updating the source configuration to use the current feed URL."
+}

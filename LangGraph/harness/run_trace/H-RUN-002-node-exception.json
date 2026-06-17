@@ -1,0 +1,34 @@
+{
+  "_comment": "Harness case H-RUN-002: blocking user_notification emitted when a node raises an unhandled exception during the run. severity=blocking prevents the pipeline from proceeding. issue_id maps to the run trace entry. suggested_actions guides the operator toward resolution.",
+  "run_id": "run-20260616-002",
+  "status": "failed",
+  "failed_at_stage": "content_review",
+  "failed_node": "review_quality_check",
+  "user_notification": {
+    "severity": "blocking",
+    "title": "Node Exception: review_quality_check failed",
+    "message": "An unhandled exception occurred in node 'review_quality_check' while processing candidate 'cand-0042'. The pipeline has been halted to prevent propagation of incomplete data. Exception: ValueError('LLM response contained no valid JSON after 3 retry attempts. Raw response prefix: \"I apologize, but I cannot...\"')",
+    "issue_id": "RUN-003",
+    "timestamp": "2026-06-16T09:15:44Z",
+    "node_traceback": "Traceback (most recent call last):\n  File \"nodes.py\", line 247, in review_quality_check\n    parsed = json.loads(llm_response)\n             ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"json/__init__.py\", line 346, in loads\n    raise JSONDecodeError(msg, doc, pos)\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "suggested_actions": [
+      "Check the LLM provider logs for the raw response that caused the parse failure. The model may have refused the request or returned a non-JSON preamble.",
+      "Inspect candidate 'cand-0042' content for potentially problematic text that may trigger model refusal (e.g., policy-violating material, unusually long input).",
+      "Verify that the content_review prompt template in prompts/content_review.md is correctly formatted and includes explicit JSON-output instructions.",
+      "If the issue is transient, re-run the failed stage in isolation after confirming the LLM endpoint is healthy.",
+      "If the issue persists across multiple candidates, consider adding a JSON-repair step or switching to structured-output mode for the review node."
+    ],
+    "affected_artifact": "content_reviews",
+    "recoverable": false
+  },
+  "node_state_snapshot": {
+    "node_name": "review_quality_check",
+    "input_candidate_id": "cand-0042",
+    "input_candidate_title": "Major Game Studio Announces Layoffs Amid Restructuring",
+    "llm_model": "claude-sonnet-4-20250514",
+    "llm_temperature": 0.1,
+    "llm_max_tokens": 4096,
+    "retry_count": 3,
+    "last_retry_backoff_seconds": 4.0
+  }
+}

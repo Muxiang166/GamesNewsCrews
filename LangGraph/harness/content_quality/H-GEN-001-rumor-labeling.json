@@ -1,0 +1,169 @@
+{
+  "_comment": "H-GEN-001: Rumors in platform posts must carry external simplified labels (流言/有待验证) and must NOT be written as confirmed facts. This fixture verifies that platform_posts derived from rumor-status claims use public_labels like ['流言', '有待验证'] and that the internal_status distinguishes credible_rumor from weak_rumor, which should produce different editorial labels in the output.",
+  "harness_id": "H-GEN-001-rumor-labeling",
+  "description": "Three platform posts (Weibo format) covering: (1) a confirmed official announcement — should NOT have rumor labels; (2) a credible rumor from authoritative leaker — should carry '可信爆料' label and NOT read as confirmed; (3) a weak forum rumor — should carry '弱流言' and clearly hedge the language. The quality gate must detect posts that present rumors as facts.",
+  "inputs": {
+    "stories": [
+      {
+        "id": "story_ff7_remake_part3",
+        "title": "Square Enix正式公布《最终幻想7 重制版》第三部2027年发售",
+        "url": "https://www.jp.square-enix.com/ff7r-part3-announcement/",
+        "source_id": "square_enix",
+        "candidate_type": "news",
+        "theme_section": "sony",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "score": 91.0,
+        "heat_score": 88.0,
+        "discussion_score": 76.0,
+        "source_urls": ["https://www.jp.square-enix.com/ff7r-part3-announcement/"],
+        "claims": [
+          {
+            "text": "Square Enix正式公布《最终幻想7 重制版》第三部2027年发售",
+            "check_status": "verified",
+            "confidence": 0.95,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_switch2_pro_rumor",
+        "title": "权威爆料：Switch 2 Pro将于2027年春季发布 支持DLSS 4",
+        "url": "https://www.resetera.com/threads/switch-2-pro-2027-rumor",
+        "source_id": "resetera",
+        "candidate_type": "rumor",
+        "theme_section": "nintendo",
+        "category": "rumor",
+        "status": "needs_review",
+        "editorial_label": "可信爆料，有待验证",
+        "score": 75.0,
+        "heat_score": 72.0,
+        "discussion_score": 58.0,
+        "source_urls": ["https://www.resetera.com/threads/switch-2-pro-2027-rumor"],
+        "claims": [
+          {
+            "text": "权威爆料：Switch 2 Pro将于2027年春季发布 支持DLSS 4",
+            "check_status": "credible_rumor",
+            "confidence": 0.55,
+            "claim_type": "rumor",
+            "verification_reasons": ["rumor_claim_with_evidence"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_gta6_delay_rumor",
+        "title": "贴吧传言：GTA6再度延期至2027年秋季",
+        "url": "https://tieba.baidu.com/p/gta6-delay-rumor-2026",
+        "source_id": "tieba",
+        "candidate_type": "rumor",
+        "theme_section": "sony",
+        "category": "rumor",
+        "status": "needs_review",
+        "editorial_label": "弱流言，有待验证",
+        "score": 42.0,
+        "heat_score": 38.0,
+        "discussion_score": 22.0,
+        "source_urls": ["https://tieba.baidu.com/p/gta6-delay-rumor-2026"],
+        "claims": [
+          {
+            "text": "贴吧传言：GTA6再度延期至2027年秋季",
+            "check_status": "weak_rumor",
+            "confidence": 0.18,
+            "claim_type": "rumor",
+            "verification_reasons": ["missing_evidence"]
+          }
+        ],
+        "publish_status": "unpublished"
+      }
+    ],
+    "platform_posts": [
+      {
+        "post_id": "post_ff7r_part3_weibo",
+        "platform": "weibo",
+        "story_id": "story_ff7_remake_part3",
+        "title": "Square Enix正式公布《最终幻想7 重制版》第三部2027年发售",
+        "body": "Square Enix今日在官方直播中正式宣布，《最终幻想7 重制版》第三部将于2027年冬季登陆PS5平台。总监野村哲也表示本作将包含全新的可探索区域和原创剧情章节。",
+        "public_labels": ["官方确认"],
+        "internal_status": "verified",
+        "asset_status": "available"
+      },
+      {
+        "post_id": "post_switch2_pro_weibo",
+        "platform": "weibo",
+        "story_id": "story_switch2_pro_rumor",
+        "title": "可信爆料：Switch 2 Pro将于2027年春季发布 支持DLSS 4",
+        "body": "据知名爆料人NateDrake透露，任天堂计划于2027年春季推出Switch 2 Pro版本，将搭载定制NVIDIA芯片并支持DLSS 4技术。目前该消息尚未获得任天堂官方确认，仅供参考。",
+        "public_labels": ["可信爆料", "有待验证"],
+        "internal_status": "credible_rumor",
+        "asset_status": "manual_fill_required"
+      },
+      {
+        "post_id": "post_gta6_delay_weibo",
+        "platform": "weibo",
+        "story_id": "story_gta6_delay_rumor",
+        "title": "网传GTA6再度延期至2027年秋季 官方尚未回应",
+        "body": "近日贴吧有网友发帖称GTA6开发进度落后，可能再度延期至2027年秋季。Rockstar Games目前未对此消息做出任何回应，建议玩家以官方公告为准。",
+        "public_labels": ["弱流言", "有待验证"],
+        "internal_status": "weak_rumor",
+        "asset_status": "manual_fill_required"
+      }
+    ]
+  },
+  "expected_output": {
+    "quality_check_results": [
+      {
+        "post_id": "post_ff7r_part3_weibo",
+        "checks": {
+          "rumor_as_fact": false,
+          "missing_rumor_label": false,
+          "confident_language_for_rumor": false,
+          "rumor_labels_required": false
+        },
+        "verdict": "pass",
+        "comment": "Official confirmed announcement. No rumor labels needed. Language is appropriately definitive."
+      },
+      {
+        "post_id": "post_switch2_pro_weibo",
+        "checks": {
+          "rumor_as_fact": false,
+          "missing_rumor_label": false,
+          "confident_language_for_rumor": false,
+          "rumor_labels_required": true
+        },
+        "verdict": "pass",
+        "comment": "Credible rumor correctly labeled with '可信爆料' and '有待验证'. Body uses hedging language ('据...透露', '尚未获得...官方确认', '仅供参考'). Does NOT present rumor as confirmed fact."
+      },
+      {
+        "post_id": "post_gta6_delay_weibo",
+        "checks": {
+          "rumor_as_fact": false,
+          "missing_rumor_label": false,
+          "confident_language_for_rumor": false,
+          "rumor_labels_required": true
+        },
+        "verdict": "pass",
+        "comment": "Weak rumor correctly labeled with '弱流言' and '有待验证'. Body is properly hedged ('网传', '目前未...做出任何回应', '建议...以官方公告为准')."
+      }
+    ],
+    "verification_notes": {
+      "rumor_labeling_rules": {
+        "verified": "public_labels: ['官方确认'] or similar — no rumor labels. Body can use definitive language.",
+        "likely": "public_labels: [] or ['参考消息'] — no rumor labels but body should cite sources.",
+        "credible_rumor": "public_labels must contain ['可信爆料', '有待验证'] or equivalent. Body must hedge ('据报道', '据透露', '尚未获得官方确认').",
+        "weak_rumor": "public_labels must contain ['弱流言', '有待验证'] or equivalent. Body must clearly hedge ('网传', '未经证实', '建议以官方公告为准').",
+        "rumor": "public_labels must contain ['流言', '有待验证']. Body must disclaim."
+      },
+      "what_constitutes_rumor_as_fact": [
+        "Using definitive verbs for unconfirmed claims (e.g., '将于' instead of '据称将于')",
+        "Omitting attribution (no source mentioned for the rumor)",
+        "Missing public_labels when internal_status is in {credible_rumor, weak_rumor, rumor}",
+        "Using 'confirmed' or 'official' language for rumor-status stories"
+      ],
+      "simplified_labels_requirement": "Rumors must carry external simplified labels ('可信爆料', '弱流言', '流言') that readers can parse at a glance. These labels must appear in public_labels array and ideally in the post title or header. They must NOT be written as confirmed ('官方确认', '正式公布')."
+    }
+  }
+}

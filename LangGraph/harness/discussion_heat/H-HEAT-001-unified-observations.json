@@ -1,0 +1,190 @@
+{
+  "_comment": "H-HEAT-001: Verifies that discussion provider observations from Bilibili and Steam are normalized into the unified social_heat_observation structure from social_heat.py. Each observation must contain all 11+ normalized fields: candidate_id, candidate_url, candidate_title, platform, access_mode, query, observed_at, status, result_count, engagement_signals, top_results, evidence_texts, heat_validity_hint, source_observation_status, source_status_code, source_url, error.",
+  "harness_id": "H-HEAT-001-unified-observations",
+  "description": "Two raw observations — a Bilibili search result and a Steam community search result — running through normalize_social_heat_observation. Validates platform routing, access_mode normalization, heat_validity_hint inference (game_discussion vs general_social_heat vs unclear), and engagement signal extraction.",
+  "inputs": {
+    "raw_observations": [
+      {
+        "_description": "Bilibili observation: game-specific discussion with high engagement — should infer heat_validity_hint=game_discussion",
+        "candidate_id": "cand-sony-001",
+        "candidate_url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+        "candidate_title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+        "platform": "bilibili",
+        "access_mode": "public_search",
+        "query": "羊蹄山 发售日 PS5",
+        "observed_at": "2026-06-16T06:00:00+00:00",
+        "status": "ok",
+        "result_count": 12,
+        "discussion_hint_count": 8,
+        "engagement_signals": {
+          "views": 320000,
+          "likes": 28000,
+          "comments": 4500,
+          "danmaku": 3200,
+          "shares": 1800
+        },
+        "top_results": [
+          {
+            "title": "《羊蹄山》发售日公布！PS5独占一年后登陆PC",
+            "url": "https://www.bilibili.com/video/BV1xx411x7xx",
+            "snippet": "Sucker Punch新作终于公布发售日，PS5玩家狂喜"
+          },
+          {
+            "title": "羊蹄山 vs 对马岛之魂 画面对比 2026 vs 2020",
+            "url": "https://www.bilibili.com/video/BV1yy422y8yy",
+            "snippet": "画质进步巨大！羊蹄山实机画面对比对马岛之魂"
+          },
+          {
+            "title": "玩家热议：羊蹄山定价69.99美元是否合理？",
+            "url": "https://www.bilibili.com/video/BV1zz433z9zz",
+            "snippet": "评论区吵起来了，你觉得这个价格能接受吗"
+          }
+        ],
+        "evidence_texts": [
+          "羊蹄山 PS5独占 发售日2026年9月15日 玩家热议 PS5 Pro增强 光追4K60帧",
+          "评论3200条 弹幕刷屏 播放量32万 转发1800次"
+        ],
+        "url": "https://search.bilibili.com/all?keyword=%E7%BE%8A%E8%B9%84%E5%B1%B1",
+        "status_code": 200,
+        "error": ""
+      },
+      {
+        "_description": "Steam observation: game discussion but weaker signals — should still infer game_discussion due to game context terms",
+        "candidate_id": "cand-pc-002",
+        "candidate_url": "https://store.steampowered.com/news/app/1234567",
+        "candidate_title": "Subnautica 3 Early Access Roadmap Revealed",
+        "platform": "steam",
+        "access_mode": "public_search",
+        "query": "Subnautica 3 early access roadmap",
+        "observed_at": "2026-06-16T05:00:00+00:00",
+        "status": "ok",
+        "result_count": 5,
+        "discussion_hint_count": 3,
+        "engagement_signals": {
+          "comments": 280,
+          "views": 85000
+        },
+        "top_results": [
+          {
+            "title": "Subnautica 3 - Official Early Access Roadmap",
+            "url": "https://steamcommunity.com/app/1234567/discussions/0/111111",
+            "snippet": "Unknown Worlds shares the Early Access roadmap for Subnautica 3"
+          }
+        ],
+        "evidence_texts": [
+          "Subnautica 3 Early Access begins December 2026. Full release planned for Q3 2027. Steam community discussions active."
+        ],
+        "url": "https://steamcommunity.com/search/?q=Subnautica+3+early+access",
+        "status_code": 200,
+        "error": ""
+      },
+      {
+        "_description": "Bilibili observation with blocked status — manual_required normalization path",
+        "candidate_id": "cand-nintendo-003",
+        "candidate_url": "https://example.invalid/zelda-movie-game-rumor",
+        "candidate_title": "传闻：任天堂正在开发《塞尔达传说》真人电影配套游戏",
+        "platform": "bilibili",
+        "access": "manual_or_api_required",
+        "query": "塞尔达 电影 配套游戏",
+        "observed_at": "2026-06-16T04:00:00+00:00",
+        "status": "skipped_manual",
+        "result_count": 0,
+        "discussion_hint_count": 0,
+        "engagement_signals": {},
+        "top_results": [],
+        "evidence_texts": [],
+        "url": "",
+        "status_code": null,
+        "error": ""
+      }
+    ]
+  },
+  "expected_output": {
+    "normalized_count": 3,
+    "observations": [
+      {
+        "candidate_id": "cand-sony-001",
+        "candidate_url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+        "candidate_title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+        "platform": "bilibili",
+        "access_mode": "public_search",
+        "query": "羊蹄山 发售日 PS5",
+        "observed_at": "2026-06-16T06:00:00+00:00",
+        "status": "ok",
+        "result_count": 12,
+        "engagement_signals": {
+          "views": 320000,
+          "likes": 28000,
+          "comments": 4500,
+          "danmaku": 3200,
+          "shares": 1800,
+          "discussion_hint_count": 8
+        },
+        "top_results_count": 3,
+        "evidence_texts_count": 2,
+        "heat_validity_hint": "game_discussion",
+        "source_observation_status": "ok",
+        "source_status_code": 200,
+        "source_url": "https://search.bilibili.com/all?keyword=%E7%BE%8A%E8%B9%84%E5%B1%B1",
+        "error": ""
+      },
+      {
+        "candidate_id": "cand-pc-002",
+        "candidate_url": "https://store.steampowered.com/news/app/1234567",
+        "candidate_title": "Subnautica 3 Early Access Roadmap Revealed",
+        "platform": "steam",
+        "access_mode": "public_search",
+        "query": "Subnautica 3 early access roadmap",
+        "observed_at": "2026-06-16T05:00:00+00:00",
+        "status": "ok",
+        "result_count": 5,
+        "engagement_signals": {
+          "comments": 280,
+          "views": 85000
+        },
+        "top_results_count": 1,
+        "evidence_texts_count": 1,
+        "heat_validity_hint": "game_discussion",
+        "source_observation_status": "ok",
+        "source_status_code": 200,
+        "source_url": "https://steamcommunity.com/search/?q=Subnautica+3+early+access",
+        "error": ""
+      },
+      {
+        "candidate_id": "cand-nintendo-003",
+        "candidate_url": "https://example.invalid/zelda-movie-game-rumor",
+        "candidate_title": "传闻：任天堂正在开发《塞尔达传说》真人电影配套游戏",
+        "platform": "bilibili",
+        "access_mode": "manual_import",
+        "query": "塞尔达 电影 配套游戏",
+        "observed_at": "2026-06-16T04:00:00+00:00",
+        "status": "manual_required",
+        "result_count": 0,
+        "engagement_signals": {},
+        "top_results_count": 0,
+        "evidence_texts_count": 0,
+        "heat_validity_hint": "unclear",
+        "source_observation_status": "skipped_manual",
+        "source_status_code": null,
+        "source_url": "",
+        "error": ""
+      }
+    ]
+  },
+  "validation_rules": {
+    "normalized_observation_required_fields": [
+      "candidate_id", "candidate_url", "candidate_title", "platform",
+      "access_mode", "query", "observed_at", "status", "result_count",
+      "engagement_signals", "top_results", "evidence_texts",
+      "heat_validity_hint", "source_observation_status",
+      "source_status_code", "source_url", "error"
+    ],
+    "access_mode_values": ["public_search", "manual_import"],
+    "status_values": ["ok", "manual_required"],
+    "heat_validity_hint_values": ["game_discussion", "unclear"],
+    "bilibili_correctly_routed": true,
+    "steam_correctly_routed": true,
+    "manual_skipped_normalized_to_manual_required": true,
+    "game_discussion_inferred_when_game_terms_present": true
+  }
+}

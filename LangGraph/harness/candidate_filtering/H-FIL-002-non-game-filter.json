@@ -1,0 +1,135 @@
+{
+  "_comment": "H-FIL-002: Verifies that high-discussion non-game content is correctly classified as supplemental-only and never contaminates the main lane. Tests every candidate_type that should route to supplemental: off_topic_entertainment, meme_gallery, guide, general_tech, pc_hardware_event (without console), deal (without platform_price), and manual_review fallback.",
+  "harness_id": "H-FIL-002-non-game-filter",
+  "description": "7 candidates covering the full spectrum of supplemental-lane classifications from candidate_types.py. Each has artificially high heat/engagement to prove the filter blocks based on content signal, not heat score. The fixture validates that split_candidate_lanes puts all 7 into supplemental and zero into main.",
+  "inputs": {
+    "candidates": [
+      {
+        "title": "某知名女星与游戏主播被拍到深夜约会 粉丝炸锅了",
+        "url": "https://example.invalid/celebrity-dating-streamer",
+        "source_id": "weibo",
+        "snippet": "据八卦媒体爆料，某知名女星与某游戏平台头部主播被拍到深夜约会，双方粉丝在社交平台上激烈争论",
+        "tags": ["celebrity", "gossip", "hot_discussion"],
+        "heat_signals": { "views": 2800000, "likes": 180000, "comments": 45000, "shares": 32000 },
+        "heat_score": 92.5,
+        "discussion_level": "trending",
+        "published_at": "2026-06-15T12:00:00+00:00",
+        "observed_at": "2026-06-15T13:00:00+00:00",
+        "expected_candidate_type": "off_topic_entertainment",
+        "expected_lane": "supplemental",
+        "expected_reason": "celebrity_or_gossip"
+      },
+      {
+        "title": "囧图合集：这届玩家是有多离谱 美女主播被游戏吓得花容失色",
+        "url": "https://example.invalid/meme-gallery-girl-scared",
+        "source_id": "gamersky",
+        "snippet": "每日囧图：玩家离谱操作大合集，美女主播玩恐怖游戏被吓得表情管理失败",
+        "tags": ["meme", "gallery"],
+        "heat_signals": { "views": 450000, "likes": 22000, "comments": 3500 },
+        "heat_score": 78.0,
+        "discussion_level": "discussed",
+        "published_at": "2026-06-15T10:00:00+00:00",
+        "observed_at": "2026-06-15T11:00:00+00:00",
+        "expected_candidate_type": "meme_gallery",
+        "expected_lane": "supplemental",
+        "expected_reason": "gallery_or_light_meme"
+      },
+      {
+        "title": "《艾尔登法环》全任务流程图文攻略：如何获取所有传说武器和护符",
+        "url": "https://example.invalid/elden-ring-all-quests-guide",
+        "source_id": "gamersky",
+        "snippet": "超详细《艾尔登法环》全任务图文流程攻略，包含所有传说武器、护符和隐藏BOSS位置，建议收藏",
+        "tags": ["guide", "walkthrough"],
+        "heat_signals": { "views": 120000, "likes": 8500, "comments": 1200 },
+        "heat_score": 65.0,
+        "discussion_level": "discussed",
+        "published_at": "2026-06-15T06:00:00+00:00",
+        "observed_at": "2026-06-15T07:00:00+00:00",
+        "expected_candidate_type": "guide",
+        "expected_lane": "supplemental",
+        "expected_reason": "guide_or_walkthrough"
+      },
+      {
+        "title": "iPhone 18 Pro Max 跑分曝光 A20芯片性能碾压M4",
+        "url": "https://example.invalid/iphone18-benchmark-leak",
+        "source_id": "gamersky",
+        "snippet": "苹果 iPhone 18 Pro Max GeekBench 跑分曝光，A20 芯片性能惊人，但跟游戏主机没有什么关系",
+        "tags": ["tech", "apple", "iphone"],
+        "heat_signals": { "views": 350000, "likes": 18000, "comments": 4200 },
+        "heat_score": 85.0,
+        "discussion_level": "trending",
+        "published_at": "2026-06-15T08:00:00+00:00",
+        "observed_at": "2026-06-15T09:00:00+00:00",
+        "expected_candidate_type": "general_tech",
+        "expected_lane": "supplemental",
+        "expected_reason": "generic_tech_without_game_platform"
+      },
+      {
+        "title": "微星RTX 6090显卡京东Mall线下体验活动 玩家可现场试玩《黑神话：悟空》",
+        "url": "https://example.invalid/msi-rtx6090-jd-mall-event",
+        "source_id": "gamersky",
+        "snippet": "微星在京东Mall举办RTX 6090显卡线下体验活动，现场提供《黑神话：悟空》试玩，但不涉及任何核心主机平台新闻",
+        "tags": ["hardware", "event", "pc"],
+        "heat_signals": { "views": 85000, "likes": 4200, "comments": 980 },
+        "heat_score": 55.0,
+        "discussion_level": "weak",
+        "published_at": "2026-06-15T04:00:00+00:00",
+        "observed_at": "2026-06-15T05:00:00+00:00",
+        "expected_candidate_type": "pc_hardware_or_event",
+        "expected_lane": "supplemental",
+        "expected_reason": "pc_hardware_event_not_core_console_or_game_news"
+      },
+      {
+        "title": "618游戏外设大促：雷蛇鼠标键盘全场五折起 入手更划算",
+        "url": "https://example.invalid/618-gaming-peripherals-deal",
+        "source_id": "gamersky",
+        "snippet": "618电商大促游戏外设专场，雷蛇、罗技、赛睿等品牌鼠标键盘手柄全场五折起",
+        "tags": ["deal", "peripherals"],
+        "heat_signals": { "views": 180000, "likes": 6500, "comments": 2200 },
+        "heat_score": 60.0,
+        "discussion_level": "discussed",
+        "published_at": "2026-06-15T02:00:00+00:00",
+        "observed_at": "2026-06-15T03:00:00+00:00",
+        "expected_candidate_type": "deal",
+        "expected_lane": "supplemental",
+        "expected_reason": "shopping_or_discount"
+      },
+      {
+        "title": "今天天气真好适合出去走走",
+        "url": "https://example.invalid/nice-weather-today",
+        "source_id": "weibo",
+        "snippet": "今天天气真好适合出去走走，阳光明媚心情舒畅",
+        "tags": ["lifestyle"],
+        "heat_signals": { "likes": 5, "comments": 0 },
+        "heat_score": 1.0,
+        "discussion_level": "none",
+        "published_at": "2026-06-15T01:00:00+00:00",
+        "observed_at": "2026-06-15T02:00:00+00:00",
+        "expected_candidate_type": "manual_review",
+        "expected_lane": "supplemental",
+        "expected_reason": "missing_editorial_focus"
+      }
+    ]
+  },
+  "expected_output": {
+    "main_lane_count": 0,
+    "supplemental_lane_count": 7,
+    "per_candidate_expectations": [
+      { "title_keyword": "女星", "candidate_type": "off_topic_entertainment", "lane": "supplemental" },
+      { "title_keyword": "囧图", "candidate_type": "meme_gallery", "lane": "supplemental" },
+      { "title_keyword": "流程攻略", "candidate_type": "guide", "lane": "supplemental" },
+      { "title_keyword": "iPhone", "candidate_type": "general_tech", "lane": "supplemental" },
+      { "title_keyword": "微星", "candidate_type": "pc_hardware_or_event", "lane": "supplemental" },
+      { "title_keyword": "618", "candidate_type": "deal", "lane": "supplemental" },
+      { "title_keyword": "天气真好", "candidate_type": "manual_review", "lane": "supplemental" }
+    ]
+  },
+  "validation_rules": {
+    "main_count": 0,
+    "supplemental_count": 7,
+    "no_supplemental_in_main": true,
+    "heat_does_not_override_classification": true,
+    "every_candidate_has_candidate_type_reasons": true,
+    "manual_review_fallback_works": true
+  }
+}

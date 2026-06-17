@@ -1,0 +1,45 @@
+{
+  "harness_id": "H-PRM-002",
+  "issue_id": "PRM-002",
+  "title": "Malformed LLM output becomes a failure artifact and notification",
+  "description": "When an LLM returns non-JSON or schema-invalid output, the pipeline must not apply partial text to facts, ranking, or publication drafts. It should write a structured failure record and use the deterministic fallback path.",
+  "input": {
+    "task_type": "search_result_relevance",
+    "prompt_id": "search.result_relevance.v0",
+    "raw_model_output": "I think this is probably relevant because the game looks similar.",
+    "input_artifact_refs": [
+      "search_expansion_requests.json",
+      "candidate:cand_001"
+    ]
+  },
+  "expected": {
+    "results_applied": false,
+    "failure_artifact": {
+      "path_suffix": "search_result_relevance_failures.json",
+      "fields": [
+        "prompt_id",
+        "task_type",
+        "input_artifact_refs",
+        "error_type",
+        "raw_output_prefix",
+        "fallback_used"
+      ]
+    },
+    "notification": {
+      "severity": "warning",
+      "issue_id": "PRM-002",
+      "suggested_actions": [
+        "inspect prompt template",
+        "inspect model response",
+        "rerun deterministic fallback or lower sample limit"
+      ]
+    },
+    "fallback": "deterministic_search_relevance"
+  },
+  "must_not": [
+    "treat natural language explanation as a valid JSON result",
+    "mark a claim verified",
+    "add URLs or facts not present in the input artifacts",
+    "change story ranking directly"
+  ]
+}

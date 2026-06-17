@@ -1,0 +1,56 @@
+{
+  "_comment": "OPS-001: When the operations layer encounters a blocking notification (e.g., a critical upstream error, a required review gate that has not been passed, or a compliance hold), the publish flow MUST stop and propagate the blocking reason. It must NOT silently continue, skip the gate, or downgrade a blocking notification to a warning.",
+  "test": "H-OPS-001",
+  "layer": "operations",
+  "scenario": {
+    "description": "The pipeline has produced a draft article, but the content-review node emitted a blocking notification because the article contains unverified claims attributed to a named source. The operations layer must intercept this and halt the publish flow.",
+    "input": {
+      "pipeline_state": "ready_for_publish",
+      "draft_article": {
+        "id": "draft-2026-06-16-001",
+        "title": "Studio X Confirms Layoffs of 200 Staff",
+        "body_markdown": "According to an internal memo obtained by our team, Studio X will lay off 200 employees next quarter.",
+        "source_claims": [
+          {
+            "claim": "Studio X will lay off 200 employees next quarter",
+            "source_type": "internal_memo",
+            "verification_status": "unverified"
+          }
+        ]
+      },
+      "notifications": [
+        {
+          "id": "notif-block-001",
+          "severity": "blocking",
+          "origin": "content_review",
+          "message": "Unverified claim attributed to internal source. Requires editorial sign-off before publish.",
+          "gate": "editorial_signoff",
+          "gate_status": "not_passed"
+        }
+      ]
+    },
+    "expected_output": {
+      "publish_flow": "halted",
+      "halt_reason": "blocking_notification: editorial_signoff not passed",
+      "notifications_propagated": [
+        {
+          "id": "notif-block-001",
+          "severity": "blocking",
+          "action": "publish_blocked"
+        }
+      ],
+      "must_not": [
+        "publish to any platform",
+        "downgrade blocking severity to warning",
+        "skip the editorial_signoff gate",
+        "proceed with a 'publish with disclaimer' fallback"
+      ]
+    },
+    "verification": {
+      "check": "publish_endpoint_not_called",
+      "blocking_notification_present_in_state": true,
+      "final_state": "blocked",
+      "downstream_platforms_contacted": 0
+    }
+  }
+}

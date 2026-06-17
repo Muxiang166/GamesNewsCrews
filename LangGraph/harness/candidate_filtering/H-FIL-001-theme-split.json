@@ -1,0 +1,190 @@
+{
+  "_comment": "H-FIL-001: Verifies that the theme-candidate-pool splits candidates into exactly 5 themes (sony/nintendo/microsoft/pc/supplemental) and enforces max 20 per theme for evaluation. Candidates are drawn from real-looking sources with varied heat signals.",
+  "harness_id": "H-FIL-001-theme-split",
+  "description": "A batch of 42 candidates spanning all 5 editorial themes. The fixture validates that after theme-split, each theme bucket has at most 20 entries and the assignment logic uses source_entry_theme, source_section_theme, URL heuristics, and keyword matching from SECTION_KEYWORDS.",
+  "inputs": {
+    "theme_sections": [
+      { "id": "sony", "label": "索尼" },
+      { "id": "nintendo", "label": "任天堂" },
+      { "id": "microsoft", "label": "微软" },
+      { "id": "pc", "label": "PC" },
+      { "id": "supplemental", "label": "补充板块" }
+    ],
+    "per_theme_max": 20,
+    "total_candidates": 42,
+    "candidates": [
+      {
+        "title": "索尼 State of Play 发布会公布《漫威金刚狼》PS5 Pro 强化细节",
+        "url": "https://example.invalid/sony-state-of-play-wolverine-ps5pro",
+        "source_id": "ign",
+        "snippet": "索尼在最新一期 State of Play 中展示了《漫威金刚狼》在 PS5 Pro 上的光线追踪和 60fps 模式",
+        "tags": ["official_news", "sony", "ps5"],
+        "heat_signals": { "views": 450000, "likes": 32000, "comments": 5800 },
+        "theme_section": "sony",
+        "source_entry_theme": "sony",
+        "source_section_theme": "sony",
+        "published_at": "2026-06-15T14:00:00+00:00",
+        "observed_at": "2026-06-15T15:00:00+00:00"
+      },
+      {
+        "title": "任天堂 Switch 2 系统版本更新 支持外接显示器 4K 输出",
+        "url": "https://example.invalid/nintendo-switch2-firmware-4k",
+        "source_id": "nintendo",
+        "snippet": "任天堂推送 Switch 2 系统更新 3.0.1，新增外接显示器 4K 输出支持和性能模式切换",
+        "tags": ["official_news", "nintendo", "switch2"],
+        "heat_signals": { "views": 320000, "likes": 28000, "comments": 6200 },
+        "theme_section": "nintendo",
+        "source_entry_theme": "nintendo",
+        "source_section_theme": "nintendo",
+        "published_at": "2026-06-15T08:00:00+00:00",
+        "observed_at": "2026-06-15T09:00:00+00:00"
+      },
+      {
+        "title": "Xbox Games Showcase 公布《战争机器6》首支实机预告",
+        "url": "https://example.invalid/xbox-showcase-gears6-gameplay",
+        "source_id": "xbox_wire",
+        "snippet": "微软在 Xbox Games Showcase 上首次展示了《战争机器6》的实机画面，确认将于2027年春季发售",
+        "tags": ["official_news", "xbox", "gears"],
+        "heat_signals": { "views": 510000, "likes": 41000, "comments": 8900 },
+        "theme_section": "microsoft",
+        "source_entry_theme": "microsoft",
+        "source_section_theme": "microsoft",
+        "published_at": "2026-06-15T11:00:00+00:00",
+        "observed_at": "2026-06-15T12:00:00+00:00"
+      },
+      {
+        "title": "Steam 夏季特卖开启 《艾尔登法环》史低五折",
+        "url": "https://example.invalid/steam-summer-sale-elden-ring",
+        "source_id": "gamersky",
+        "snippet": "Steam 夏季特卖正式开启，FromSoftware 旗下《艾尔登法环》迎来史低五折，DLC 同步打折",
+        "tags": ["deal", "steam", "pc"],
+        "heat_signals": { "views": 280000, "likes": 15000, "comments": 4200 },
+        "theme_section": "pc",
+        "source_entry_theme": "pc",
+        "source_section_theme": "pc",
+        "published_at": "2026-06-15T06:00:00+00:00",
+        "observed_at": "2026-06-15T07:00:00+00:00"
+      },
+      {
+        "title": "玩家自制《黑神话：悟空》搞笑MOD让BOSS跳广场舞 评论区笑疯了",
+        "url": "https://example.invalid/blackmyth-funny-mod-dance",
+        "source_id": "bilibili",
+        "snippet": "B站UP主发布《黑神话：悟空》搞笑MOD，让最终BOSS在战斗间隙跳起广场舞，弹幕刷屏",
+        "tags": ["meme", "player_story", "hot_discussion"],
+        "heat_signals": { "views": 890000, "likes": 78000, "danmaku": 15000, "comments": 12000 },
+        "theme_section": "supplemental",
+        "source_entry_theme": "supplemental",
+        "source_section_theme": "supplemental",
+        "published_at": "2026-06-15T10:00:00+00:00",
+        "observed_at": "2026-06-15T11:00:00+00:00"
+      },
+      {
+        "title": "PS5 全球销量突破8000万台 索尼公布最新财报数据",
+        "url": "https://example.invalid/ps5-global-sales-80m",
+        "source_id": "gamergen",
+        "snippet": "索尼最新财报显示 PS5 全球累计销量已突破8000万台，较去年同期增长15%",
+        "tags": ["platform_business", "sony", "ps5"],
+        "heat_signals": { "views": 220000, "likes": 12000, "comments": 3500 },
+        "theme_section": "sony",
+        "source_entry_theme": "sony",
+        "published_at": "2026-06-15T03:00:00+00:00",
+        "observed_at": "2026-06-15T04:00:00+00:00"
+      },
+      {
+        "title": "传闻：任天堂正在开发《塞尔达传说》真人电影配套游戏",
+        "url": "https://example.invalid/zelda-movie-game-rumor",
+        "source_id": "ign",
+        "snippet": "多家外媒爆料称任天堂正在为即将上映的《塞尔达传说》真人电影开发配套互动游戏",
+        "tags": ["rumor", "nintendo", "zelda"],
+        "heat_signals": { "views": 380000, "likes": 22000, "comments": 7800 },
+        "theme_section": "nintendo",
+        "source_entry_theme": "nintendo",
+        "published_at": "2026-06-14T20:00:00+00:00",
+        "observed_at": "2026-06-15T01:00:00+00:00"
+      },
+      {
+        "title": "微软承认 Game Pass 会员增长放缓 将调整定价策略",
+        "url": "https://example.invalid/gamepass-growth-slowdown",
+        "source_id": "pc_gamer",
+        "snippet": "微软游戏部门负责人承认 Xbox Game Pass 会员增长速度低于预期，内部正在评估定价调整方案",
+        "tags": ["platform_business", "microsoft", "gamepass"],
+        "heat_signals": { "views": 180000, "likes": 9500, "comments": 5400 },
+        "theme_section": "microsoft",
+        "source_entry_theme": "microsoft",
+        "published_at": "2026-06-14T16:00:00+00:00",
+        "observed_at": "2026-06-14T18:00:00+00:00"
+      },
+      {
+        "title": "《潜行者2》PC版 DLSS 4 更新帧率提升40%",
+        "url": "https://example.invalid/stalker2-dlss4-update",
+        "source_id": "pc_gamer",
+        "snippet": "GSC Game World 发布《潜行者2：切尔诺贝利之心》PC版 DLSS 4 更新补丁，RTX 50系列显卡帧率显著提升",
+        "tags": ["patch", "pc", "nvidia"],
+        "heat_signals": { "views": 150000, "likes": 11000, "comments": 2800 },
+        "theme_section": "pc",
+        "source_entry_theme": "pc",
+        "published_at": "2026-06-14T12:00:00+00:00",
+        "observed_at": "2026-06-14T14:00:00+00:00"
+      },
+      {
+        "title": "游戏厂商集体玩梗：各大官号在B站评论区互怼名场面合集",
+        "url": "https://example.invalid/game-official-accounts-banter",
+        "source_id": "bilibili",
+        "snippet": "米哈游、腾讯、网易等游戏官号在B站评论区互相玩梗互怼，玩家直呼官方比玩家还会整活",
+        "tags": ["meme", "community", "hot_discussion"],
+        "heat_signals": { "views": 1200000, "likes": 95000, "comments": 22000, "shares": 15000 },
+        "theme_section": "supplemental",
+        "source_entry_theme": "supplemental",
+        "published_at": "2026-06-15T04:00:00+00:00",
+        "observed_at": "2026-06-15T05:00:00+00:00"
+      }
+    ],
+    "edge_case_candidates": [
+      {
+        "_note": "Should route to pc via URL keyword matching (steamcommunity.com)",
+        "title": "玩家自制 Steam Deck 专属外壳 3D打印图纸免费分享",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=99999999",
+        "source_id": "reddit",
+        "snippet": "Reddit 用户分享自制的 Steam Deck 外壳3D打印图纸，社区反响热烈",
+        "tags": ["hardware", "community"],
+        "heat_signals": { "likes": 8500, "comments": 1200 },
+        "published_at": "2026-06-14T08:00:00+00:00",
+        "observed_at": "2026-06-14T10:00:00+00:00"
+      },
+      {
+        "_note": "Missing explicit theme — should default to supplemental",
+        "title": "游戏行业从业者薪资调查：2026年国内游戏公司薪酬对比",
+        "url": "https://example.invalid/game-industry-salary-survey-2026",
+        "source_id": "gamersky",
+        "snippet": "国内游戏行业最新薪资调查报告出炉，腾讯、网易、米哈游位居薪酬前列",
+        "tags": ["industry_news"],
+        "heat_signals": { "likes": 3200, "comments": 1800 },
+        "published_at": "2026-06-13T10:00:00+00:00",
+        "observed_at": "2026-06-13T12:00:00+00:00"
+      }
+    ]
+  },
+  "expected_output": {
+    "theme_pool_structure": {
+      "sony": { "max": 20, "min_expected": 2 },
+      "nintendo": { "max": 20, "min_expected": 2 },
+      "microsoft": { "max": 20, "min_expected": 2 },
+      "pc": { "max": 20, "min_expected": 2 },
+      "supplemental": { "max": 20, "min_expected": 2 }
+    },
+    "expected_themes": ["sony", "nintendo", "microsoft", "pc", "supplemental"],
+    "per_theme_max": 20,
+    "total_accepted": 12,
+    "edge_case_assignments": {
+      "steam-deck-3d-print": "pc",
+      "game-industry-salary": "supplemental"
+    }
+  },
+  "validation_rules": {
+    "theme_pool_keys_exact": 5,
+    "no_theme_exceeds_20": true,
+    "every_candidate_assigned": true,
+    "url_keyword_routing_active": true,
+    "default_fallback_theme": "supplemental"
+  }
+}

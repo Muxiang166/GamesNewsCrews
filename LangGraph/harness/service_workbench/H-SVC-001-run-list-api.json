@@ -1,0 +1,48 @@
+{
+  "schema_version": "0.1.0",
+  "harness_id": "H-SVC-001",
+  "issue_id": "SVC-001",
+  "layer": "service_workbench",
+  "title": "Run list API returns review-ready run summaries",
+  "purpose": "Verify that the FastAPI workbench can list historical runs through the whitelist query surface instead of scanning arbitrary files.",
+  "input": {
+    "sqlite_tables": {
+      "runs": [
+        {
+          "run_id": "run_20260617_001",
+          "started_at": "2026-06-17T10:00:00+08:00",
+          "finished_at": "2026-06-17T10:08:00+08:00",
+          "output_dir": "outputs/langgraph/v020_review",
+          "status": "completed"
+        }
+      ],
+      "user_notifications": [
+        {
+          "run_id": "run_20260617_001",
+          "notification_id": "notif_abc",
+          "severity": "warning",
+          "status": "open"
+        }
+      ]
+    },
+    "query": {
+      "endpoint": "GET /runs",
+      "limit": 20
+    }
+  },
+  "expected": {
+    "items": [
+      {
+        "run_id": "run_20260617_001",
+        "status": "completed",
+        "open_notification_count": 1,
+        "has_artifact_manifest": true
+      }
+    ],
+    "must_not": [
+      "return raw SQL",
+      "require reading unregistered output paths"
+    ]
+  },
+  "status": "implemented"
+}

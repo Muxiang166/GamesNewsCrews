@@ -1,0 +1,58 @@
+{
+  "_comment": "H-SRC-001: Verifies query-compression from a long game-news title produces 1-3 short search queries without inventing game names, platforms, or dates not present in the original text.",
+  "harness_id": "H-SRC-001-query-compression",
+  "description": "Given a verbose candidate title about a known game event, the LLM query compressor must return concise search queries that preserve only entities present in the source title. The fixture validates that queries are short (<=24 chars, <=3 word gaps), risk_flags catches fabrications, and confidence is reasonable.",
+  "input": {
+    "request_id": "query-compression-search-expansion-candidate_followup-nintendo-1",
+    "schema_version": "search_query_compression_v0",
+    "prompt_name": "search_query_compressor.md",
+    "instructions": "Return JSON only. You compress games-news search intent into 1-3 short queries for Chinese social search. Use only provided text. Do not invent game names, dates, platforms, or claims. Prefer game name + event/change. Avoid full sentences, adjectives, clickbait, and filler words.",
+    "source_request_id": "search-expansion-candidate_followup-nintendo-1",
+    "method": "candidate_followup",
+    "theme_section": "nintendo",
+    "fallback_query": "任天堂 Switch 2 新作 超级马里奥银河3 正式公布 发售日 玩家讨论",
+    "source_candidate_title": "【重磅消息】任天堂官方在最新直面会上正式公布了 Switch 2 平台独占大作《超级马里奥银河3》的发售日期为2026年12月25日，同时展示了长达8分钟的实机画面和全新的重力翻转机制玩法，玩家社区已经炸开了锅",
+    "source_candidate_url": "https://example.invalid/nintendo-switch2-mario-galaxy3-reveal",
+    "event_context": {
+      "active": true,
+      "event_name": "Nintendo Direct",
+      "signal_count": 4
+    },
+    "json_schema": {
+      "type": "object",
+      "required": ["queries", "confidence", "risk_flags"],
+      "properties": {
+        "queries": { "type": "array", "items": { "type": "string" }, "maxItems": 3 },
+        "entities": { "type": "object" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "risk_flags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "expected_output": {
+    "request_id": "query-compression-search-expansion-candidate_followup-nintendo-1",
+    "source_request_id": "search-expansion-candidate_followup-nintendo-1",
+    "parse_status": "parsed",
+    "queries": [
+      "Switch2 马里奥银河3",
+      "超级马里奥银河3 发售日",
+      "马里奥银河3 玩家讨论"
+    ],
+    "entities": {
+      "game": "超级马里奥银河3",
+      "platform": "Switch2",
+      "publisher": "任天堂"
+    },
+    "confidence": 0.92,
+    "risk_flags": []
+  },
+  "validation_rules": {
+    "query_length_max": 24,
+    "query_word_gap_max": 3,
+    "queries_min": 1,
+    "queries_max": 3,
+    "forbidden_inventions": ["PS5", "Xbox", "Steam", "PC", "2027", "NS3", "塞尔达", "宝可梦"],
+    "required_terms_present": ["马里奥", "Switch"],
+    "confidence_min": 0.7
+  }
+}

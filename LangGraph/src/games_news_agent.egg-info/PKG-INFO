@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: games-news-agent
+Version: 0.1.0
+Summary: LangGraph skeleton for a multi-agent games news intelligence pipeline.
+Requires-Python: >=3.11
+Requires-Dist: langgraph<2,>=0.2
+Requires-Dist: langchain-core<2,>=0.3
+Requires-Dist: langchain-community<0.5,>=0.4
+Requires-Dist: pydantic<3,>=2
+Requires-Dist: python-dotenv<2,>=1
+Requires-Dist: pyyaml<7,>=6

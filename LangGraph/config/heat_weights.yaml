@@ -1,0 +1,13 @@
+# Heat scoring weights — tunable per Phase 4.5 calibration
+scoring:
+  recency_multiplier: 15.0
+  source_priority_weight: 0.12
+  source_kind_bonus:
+    community: 8.0
+    official: 4.0
+    media: 2.0
+  candidate_type_bonus:
+    meme_player_story: 14.0
+    hot_discussion: 6.0
+    controversy_market_risk: 7.0
+  discussion_score_weight: 0.45

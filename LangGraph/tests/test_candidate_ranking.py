@@ -117,6 +117,40 @@ class CandidateRankingTest(unittest.TestCase):
         self.assertIn("controversy-or-market-risk", accepted[0]["heat_reasons"])
         self.assertNotIn("meme/player-story", accepted[0]["heat_reasons"])
 
+    def test_multi_platform_discussion_outranks_fresh_single_source_news(self) -> None:
+        now = datetime(2026, 5, 11, 10, 0, tzinfo=timezone.utc)
+        sources = {
+            "ign": {"priority": 90, "kind": "media"},
+            "gamersky": {"priority": 82, "kind": "media"},
+        }
+        candidates = [
+            _candidate(
+                "IGN 刚发布的普通预告片新闻",
+                hours_ago=1,
+                source_id="ign",
+                heat_signals={},
+                tags=["official_news"],
+            ),
+            _candidate(
+                "Switch 2 涨价在微博 Reddit B站引发大量玩家热议",
+                hours_ago=8,
+                source_id="gamersky",
+                heat_signals={},
+                tags=["price"],
+            ),
+        ]
+
+        accepted, _ = filter_and_rank_candidates(
+            candidates,
+            sources,
+            now=now,
+            lookback_hours=48,
+        )
+
+        self.assertEqual(accepted[0]["title"], "Switch 2 涨价在微博 Reddit B站引发大量玩家热议")
+        self.assertGreater(accepted[0]["discussion_score"], accepted[1]["discussion_score"])
+        self.assertIn("discussion:discussed", accepted[0]["heat_reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,77 @@
+[
+  {
+    "title": "玩家无厘头操作聊天截图被大量转载",
+    "url": "dry-run://example/player-chat-screenshot",
+    "source_id": "bilibili",
+    "snippet": "示例：玩家在游戏内做出反常操作后留下聊天截图，被二创视频和动态大量转发。",
+    "query": "游戏 玩家 聊天截图 离谱 操作",
+    "discovered_at": "2026-05-14T09:00:00+00:00",
+    "observed_at": "2026-05-14T08:00:00+00:00",
+    "heat_signals": {
+      "views": 180000,
+      "likes": 9000,
+      "comments": 1800,
+      "danmaku": 900
+    },
+    "tags": ["player_story", "meme", "hot_discussion"]
+  },
+  {
+    "title": "微软游戏爆笑梗图在社区刷屏",
+    "url": "dry-run://example/microsoft-game-meme",
+    "source_id": "xiaoheihe",
+    "snippet": "示例：玩家围绕某微软游戏的离谱 BUG 制作梗图，评论和转发快速升高。",
+    "query": "微软 游戏 梗图 热门",
+    "discovered_at": "2026-05-14T09:00:00+00:00",
+    "observed_at": "2026-05-14T07:00:00+00:00",
+    "heat_signals": {
+      "likes": 5200,
+      "comments": 980,
+      "shares": 1300
+    },
+    "tags": ["meme", "player_story", "hot_discussion"]
+  },
+  {
+    "title": "索尼 DEI 与亏损相关说法待核查",
+    "url": "dry-run://example/sony-dei-loss-rumor",
+    "source_id": "weibo",
+    "snippet": "示例：社区将索尼业务亏损与 DEI 争议关联传播，需要区分事实与因果推断。",
+    "query": "索尼 DEI 亏损 游戏",
+    "discovered_at": "2026-05-14T09:00:00+00:00",
+    "observed_at": "2026-05-14T04:00:00+00:00",
+    "heat_signals": {
+      "likes": 2300,
+      "comments": 1600,
+      "reposts": 760
+    },
+    "tags": ["controversy", "dei", "loss", "hot_discussion"]
+  },
+  {
+    "title": "权威爆料者称某游戏可能下月公布",
+    "url": "dry-run://example/credible-rumor",
+    "source_id": "reddit",
+    "snippet": "示例：权威爆料者透露《GGGGG》极有可能于下月公布，已有多名媒体人转发。",
+    "query": "GGGGG rumor reveal next month",
+    "discovered_at": "2026-05-14T09:00:00+00:00",
+    "observed_at": "2026-05-13T20:00:00+00:00",
+    "heat_signals": {
+      "likes": 1800,
+      "comments": 620,
+      "shares": 320
+    },
+    "tags": ["rumor", "credible_rumor", "hot_discussion"]
+  },
+  {
+    "title": "示例旧线索：Nintendo Switch 2 发布复盘",
+    "url": "dry-run://example/old-switch-2-recap",
+    "source_id": "ign",
+    "snippet": "示例：旧硬件发布复盘，应被 48 小时时间窗口过滤。",
+    "query": "Nintendo Switch 2 recap",
+    "discovered_at": "2026-05-14T09:00:00+00:00",
+    "observed_at": "2026-05-10T09:00:00+00:00",
+    "heat_signals": {
+      "likes": 50,
+      "comments": 3
+    },
+    "tags": ["official_news"]
+  }
+]

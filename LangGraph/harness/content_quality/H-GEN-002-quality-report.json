@@ -1,0 +1,422 @@
+{
+  "_comment": "H-GEN-002: Content quality report that identifies (a) single-source dominance in story selection, (b) weak heat signal coverage in candidates, and (c) insufficient evidence/limited document fetch. The gate_status should be 'needs_review' (not 'pass') due to these issues, with actionable recommendations for each problem.",
+  "harness_id": "H-GEN-002-quality-report",
+  "description": "A content quality report derived from a run where 80% of stories came from IGN, only 2 out of 8 candidates had heat signals, and only 3 documents were fetched for 8 candidates. The quality report must flag these as issues and recommend fixes. The simulated input state mimics a dry-run with problematic data.",
+  "inputs": {
+    "pipeline_state": {
+      "candidates": [
+        {
+          "title": "IGN: Sony State of Play June 2026 roundup",
+          "url": "https://www.ign.com/articles/sony-state-of-play-june-2026",
+          "source_id": "ign",
+          "snippet": "IGN's comprehensive coverage of all announcements from the June 2026 State of Play.",
+          "heat_signals": {"views": 250000, "likes": 15000, "comments": 3000},
+          "heat_score": 82.0,
+          "discussion_profile": {"level": "trending", "score": 68, "has_direct_engagement": true},
+          "tags": ["official_news", "sony"]
+        },
+        {
+          "title": "IGN: Nintendo Direct June 2026 everything announced",
+          "url": "https://www.ign.com/articles/nintendo-direct-june-2026",
+          "source_id": "ign",
+          "snippet": "IGN rounds up every announcement from the June 2026 Nintendo Direct.",
+          "heat_signals": {"views": 220000, "likes": 12000, "comments": 2800},
+          "heat_score": 78.0,
+          "discussion_profile": {"level": "discussed", "score": 55, "has_direct_engagement": true},
+          "tags": ["official_news", "nintendo"]
+        },
+        {
+          "title": "IGN: Xbox Showcase 2026 highlights",
+          "url": "https://www.ign.com/articles/xbox-showcase-2026-highlights",
+          "source_id": "ign",
+          "snippet": "IGN's detailed breakdown of the Xbox Showcase 2026 announcements.",
+          "heat_signals": {"views": 180000, "likes": 10000, "comments": 2200},
+          "heat_score": 74.0,
+          "discussion_profile": {"level": "discussed", "score": 48, "has_direct_engagement": true},
+          "tags": ["official_news", "microsoft"]
+        },
+        {
+          "title": "IGN: PC Gaming Show 2026 recap",
+          "url": "https://www.ign.com/articles/pc-gaming-show-2026-recap",
+          "source_id": "ign",
+          "snippet": "IGN's recap of the PC Gaming Show 2026.",
+          "heat_signals": {"views": 140000, "likes": 8000, "comments": 1800},
+          "heat_score": 68.0,
+          "discussion_profile": {"level": "discussed", "score": 42, "has_direct_engagement": true},
+          "tags": ["official_news", "pc"]
+        },
+        {
+          "title": "Gamersky: 索尼State of Play全程汇总",
+          "url": "https://www.gamersky.com/news/202606/sony-state-of-play-recap.shtml",
+          "source_id": "gamersky",
+          "snippet": "游民星空对索尼2026年6月State of Play发布会的全程中文汇总。",
+          "heat_signals": {"views": 85000, "likes": 4200, "comments": 800},
+          "heat_score": 62.0,
+          "discussion_profile": {"level": "discussed", "score": 38, "has_direct_engagement": true},
+          "tags": ["official_news", "sony"]
+        },
+        {
+          "title": "Gamersky: 任天堂直面会全程回顾",
+          "url": "https://www.gamersky.com/news/202606/nintendo-direct-recap.shtml",
+          "source_id": "gamersky",
+          "snippet": "游民星空对任天堂2026年6月直面会的全程中文回顾。",
+          "heat_signals": {"views": 72000, "likes": 3500, "comments": 620},
+          "heat_score": 58.0,
+          "discussion_profile": {"level": "discussed", "score": 34, "has_direct_engagement": true},
+          "tags": ["official_news", "nintendo"]
+        },
+        {
+          "title": "Gematsu: Upcoming Japanese game releases calendar",
+          "url": "https://www.gematsu.com/2026/06/japanese-game-release-calendar",
+          "source_id": "gematsu",
+          "snippet": "Gematsu updates its Japanese game release calendar for summer 2026.",
+          "heat_signals": {},
+          "heat_score": 38.0,
+          "discussion_profile": {"level": "none", "score": 0},
+          "tags": ["calendar", "release_schedule"]
+        },
+        {
+          "title": "SteamDB: Top wishlisted games June 2026",
+          "url": "https://steamdb.info/wishlist/2026-06/",
+          "source_id": "steamdb",
+          "snippet": "SteamDB publishes the most wishlisted upcoming PC games for June 2026.",
+          "heat_signals": {},
+          "heat_score": 32.0,
+          "discussion_profile": {"level": "none", "score": 0},
+          "tags": ["data", "pc", "steam"]
+        }
+      ],
+      "supplemental_candidates": [],
+      "rejected_candidates": [
+        {
+          "title": "Old rumor from 3 months ago",
+          "source_id": "reddit",
+          "reject_reason": "outside_time_window"
+        }
+      ],
+      "documents": [
+        {
+          "candidate_url": "https://www.ign.com/articles/sony-state-of-play-june-2026",
+          "title": "IGN Sony State of Play June 2026 roundup",
+          "source_id": "ign",
+          "content": "Full Sony State of Play coverage...",
+          "fetched_at": "2026-06-16T08:00:00+00:00"
+        },
+        {
+          "candidate_url": "https://www.ign.com/articles/nintendo-direct-june-2026",
+          "title": "IGN Nintendo Direct June 2026 everything announced",
+          "source_id": "ign",
+          "content": "Full Nintendo Direct coverage...",
+          "fetched_at": "2026-06-16T08:01:00+00:00"
+        },
+        {
+          "candidate_url": "https://www.gamersky.com/news/202606/sony-state-of-play-recap.shtml",
+          "title": "Gamersky State of Play recap",
+          "source_id": "gamersky",
+          "content": "中文版索尼发布会汇总...",
+          "fetched_at": "2026-06-16T08:02:00+00:00"
+        }
+      ],
+      "document_errors": [
+        {
+          "candidate_url": "https://www.ign.com/articles/xbox-showcase-2026-highlights",
+          "error": "HTTP 403 Forbidden",
+          "source_id": "ign"
+        },
+        {
+          "candidate_url": "https://steamdb.info/wishlist/2026-06/",
+          "error": "Timeout after 30s",
+          "source_id": "steamdb"
+        }
+      ],
+      "claim_verifications": [
+        {
+          "text": "Sony State of Play June 2026 announcements",
+          "check_status": "likely",
+          "confidence": 0.78,
+          "claim_type": "news"
+        },
+        {
+          "text": "Nintendo Direct June 2026 lineup",
+          "check_status": "likely",
+          "confidence": 0.75,
+          "claim_type": "news"
+        },
+        {
+          "text": "Xbox Showcase 2026 games list",
+          "check_status": "unchecked",
+          "confidence": 0.0,
+          "claim_type": "news"
+        },
+        {
+          "text": "PC Gaming Show 2026 titles",
+          "check_status": "unchecked",
+          "confidence": 0.0,
+          "claim_type": "news"
+        }
+      ],
+      "stories": [
+        {
+          "id": "story_sony_sop",
+          "title": "Sony State of Play June 2026 roundup",
+          "url": "https://www.ign.com/articles/sony-state-of-play-june-2026",
+          "source_urls": ["https://www.ign.com/articles/sony-state-of-play-june-2026"],
+          "theme_section": "sony",
+          "score": 82.0,
+          "status": "ready"
+        },
+        {
+          "id": "story_nintendo_direct",
+          "title": "Nintendo Direct June 2026 everything announced",
+          "url": "https://www.ign.com/articles/nintendo-direct-june-2026",
+          "source_urls": ["https://www.ign.com/articles/nintendo-direct-june-2026"],
+          "theme_section": "nintendo",
+          "score": 78.0,
+          "status": "ready"
+        },
+        {
+          "id": "story_xbox_showcase",
+          "title": "Xbox Showcase 2026 highlights",
+          "url": "https://www.ign.com/articles/xbox-showcase-2026-highlights",
+          "source_urls": ["https://www.ign.com/articles/xbox-showcase-2026-highlights"],
+          "theme_section": "microsoft",
+          "score": 74.0,
+          "status": "ready"
+        },
+        {
+          "id": "story_pc_showcase",
+          "title": "PC Gaming Show 2026 recap",
+          "url": "https://www.ign.com/articles/pc-gaming-show-2026-recap",
+          "source_urls": ["https://www.ign.com/articles/pc-gaming-show-2026-recap"],
+          "theme_section": "pc",
+          "score": 68.0,
+          "status": "ready"
+        },
+        {
+          "id": "story_gamersky_sop",
+          "title": "Gamersky State of Play recap",
+          "url": "https://www.gamersky.com/news/202606/sony-state-of-play-recap.shtml",
+          "source_urls": ["https://www.gamersky.com/news/202606/sony-state-of-play-recap.shtml"],
+          "theme_section": "sony",
+          "score": 62.0,
+          "status": "ready"
+        }
+      ],
+      "platform_posts": [
+        {
+          "post_id": "post_sony_sop",
+          "platform": "weibo",
+          "story_id": "story_sony_sop",
+          "title": "索尼State of Play 6月发布会内容汇总",
+          "body": "2026年6月State of Play发布会内容汇总...",
+          "public_labels": ["官方汇总"],
+          "internal_status": "likely"
+        },
+        {
+          "post_id": "post_nintendo_direct",
+          "platform": "weibo",
+          "story_id": "story_nintendo_direct",
+          "title": "任天堂直面会6月全程回顾",
+          "body": "2026年6月任天堂直面会全程内容回顾...",
+          "public_labels": ["官方汇总"],
+          "internal_status": "likely"
+        }
+      ],
+      "theme_candidate_pool": {
+        "candidate_pool_count": 8,
+        "selected_candidates": [
+          {"source_id": "ign", "title": "Sony State of Play"},
+          {"source_id": "ign", "title": "Nintendo Direct"},
+          {"source_id": "ign", "title": "Xbox Showcase"},
+          {"source_id": "ign", "title": "PC Gaming Show"},
+          {"source_id": "gamersky", "title": "Sony State of Play"},
+          {"source_id": "gamersky", "title": "Nintendo Direct"},
+          {"source_id": "gematsu", "title": "Release calendar"},
+          {"source_id": "steamdb", "title": "Wishlist"}
+        ],
+        "fetch_candidates": [
+          {"source_id": "ign", "title": "Sony State of Play"},
+          {"source_id": "ign", "title": "Nintendo Direct"},
+          {"source_id": "gamersky", "title": "Sony State of Play"}
+        ]
+      },
+      "llm_verification_requests": [],
+      "llm_verification_results": [],
+      "source_health": {
+        "summary": {
+          "healthy": 1,
+          "needs_fill": 2,
+          "source_blocked": 0,
+          "source_broken": 0
+        }
+      }
+    }
+  },
+  "expected_output": {
+    "content_quality_report": {
+      "version": "0.1.0",
+      "gate_status": "needs_review",
+      "overall_score": 52,
+      "readiness": "ready_for_content_review",
+      "summary": {
+        "candidates": 8,
+        "supplemental_candidates": 0,
+        "rejected_candidates": 1,
+        "documents": 3,
+        "claim_verifications": 4,
+        "stories": 5,
+        "platform_posts": 2,
+        "llm_verification_requests": 0,
+        "llm_verification_results": 0,
+        "source_health": {
+          "healthy": 1,
+          "needs_fill": 2,
+          "source_blocked": 0,
+          "source_broken": 0
+        }
+      },
+      "metrics": {
+        "candidate_sources": {
+          "ign": 4,
+          "gamersky": 2,
+          "gematsu": 1,
+          "steamdb": 1
+        },
+        "story_sources": {
+          "ign.com": 4,
+          "gamersky.com": 1
+        },
+        "candidate_source_dominant_share": 0.5,
+        "story_source_dominant_share": 0.8,
+        "heat_signal_coverage": 0.25,
+        "discussion_signal_coverage": 0.25,
+        "document_fetch_coverage": 0.375,
+        "story_to_candidate_ratio": 0.625,
+        "rumor_story_count": 0,
+        "rumor_post_count": 0,
+        "manual_asset_ratio": 0.0
+      },
+      "stage_scores": {
+        "source_collection": {
+          "score": 52,
+          "status": "needs_review",
+          "message": "1/3 个真实来源健康。",
+          "metrics": {
+            "source_health": {
+              "healthy": 1,
+              "needs_fill": 2,
+              "source_blocked": 0,
+              "source_broken": 0
+            }
+          }
+        },
+        "candidate_filtering": {
+          "score": 48,
+          "status": "needs_review",
+          "message": "候选已进入主/补充/拒绝分流；分数主要受来源集中度和热度信号影响。",
+          "metrics": {
+            "candidates": 8,
+            "dominant_source_share": 0.5,
+            "heat_signal_coverage": 0.25,
+            "discussion_signal_coverage": 0.25
+          }
+        },
+        "evidence_fetch": {
+          "score": 42,
+          "status": "needs_review",
+          "message": "正文抓取覆盖决定证据链是否足够支撑内容评估。",
+          "metrics": {
+            "documents": 3,
+            "document_fetch_coverage": 0.375
+          }
+        },
+        "claim_verification": {
+          "score": 55,
+          "status": "needs_review",
+          "message": "claim 核查分数由规则核查覆盖和 LLM/人工语义核查覆盖共同决定。",
+          "metrics": {
+            "claim_verifications": 4,
+            "llm_verification_requests": 0,
+            "llm_verification_results": 0
+          }
+        },
+        "story_selection": {
+          "score": 45,
+          "status": "needs_review",
+          "message": "story 选择分数主要看是否有足够内容，以及入选故事是否被单一来源主导。",
+          "metrics": {
+            "stories": 5,
+            "dominant_source_share": 0.8
+          }
+        },
+        "platform_packaging": {
+          "score": 50,
+          "status": "needs_review",
+          "message": "平台包装分数只评价文案与素材准备度，不评价最终排版效果。",
+          "metrics": {
+            "stories": 5,
+            "platform_posts": 2,
+            "manual_asset_ratio": 0.0
+          }
+        }
+      },
+      "issues": [
+        {
+          "code": "single_source_story_dominance",
+          "severity": "warning",
+          "message": "入选 story 被单一来源主导。",
+          "recommendation": "在最终简报前加入单源数量上限或来源多样性评分。"
+        },
+        {
+          "code": "low_discussion_signal_coverage",
+          "severity": "warning",
+          "message": "多数候选缺少评论、转发、弹幕或多平台讨论证据，暂不能证明属于高热度讨论。",
+          "recommendation": "先把它们视为新鲜媒体线索；接入社区/搜索热度采集后，再标成高热度故事。"
+        },
+        {
+          "code": "limited_document_fetch",
+          "severity": "warning",
+          "message": "正文抓取覆盖较低，只核查了主候选中的一小部分。",
+          "recommendation": "内容验证运行时提高 --document-fetch-limit。"
+        },
+        {
+          "code": "no_llm_verification_results",
+          "severity": "warning",
+          "message": "已生成 LLM 核查请求，但没有应用 LLM 核查结果。",
+          "recommendation": "对发布候选运行 LLM verifier；否则只能把结果视为规则预审，不可直接发布。"
+        },
+        {
+          "code": "missing_platform_posts",
+          "severity": "warning",
+          "message": "已有 stories，但部分没有对应平台文案。",
+          "recommendation": "先运行 PlatformWriter，再评估内容包装质量。"
+        }
+      ],
+      "recommendations": [
+        "在最终简报前加入单源数量上限或来源多样性评分。",
+        "先把它们视为新鲜媒体线索；接入社区/搜索热度采集后，再标成高热度故事。",
+        "内容验证运行时提高 --document-fetch-limit。",
+        "对发布候选运行 LLM verifier；否则只能把结果视为规则预审，不可直接发布。",
+        "先运行 PlatformWriter，再评估内容包装质量。"
+      ]
+    },
+    "verification_notes": {
+      "single_source_dominance": {
+        "observed": "IGN provides 4 out of 5 stories (80%). The IGN source domain (ign.com) has a dominant_share of 0.8 in the story source distribution, exceeding the 0.67 threshold.",
+        "why_problematic": "If a single source goes down, has a paywall, or publishes incorrect information, the entire briefing is compromised. Multi-source diversity is essential for credible journalism.",
+        "fix": "Configure more per-platform sources (e.g., for Sony: PlayStation Blog, Gematsu, Famitsu, Eurogamer). Add source_dominance_audit to selection diagnostics."
+      },
+      "weak_heat_signals": {
+        "observed": "Only 2 out of 8 candidates (25%) have any heat_signals. Gematsu and SteamDB entries have empty heat_signals and no discussion_profile. The discussion_signal_coverage of 0.25 is below the 0.4 threshold.",
+        "why_problematic": "The pipeline aims to surface high-heat discussions. Candidates without heat signals may be low-engagement stories that readers do not care about. They dilute the briefing quality.",
+        "fix": "Improve heat signal collection from social platforms (Weibo likes/comments, Bilibili danmaku/views, tieba replies). Run discussion_probe on more candidates."
+      },
+      "insufficient_evidence": {
+        "observed": "Only 3 documents fetched for 8 candidates (37.5% coverage). The evidence_fetch stage score is 42 (2nd lowest). Two document fetches failed (HTTP 403, timeout). 4 out of 5 stories have no corresponding platform post.",
+        "why_problematic": "Without document evidence, claim verification cannot function. Unverified claims cannot be published. The content quality gate correctly blocks.",
+        "fix": "Increase document_fetch_limit to at least 6. Add retry logic for transient fetch errors. Configure user-agent and rate limiting to avoid HTTP 403 from IGN."
+      },
+      "gate_status_rationale": "The gate is 'needs_review' (not 'pass' and not 'blocked') because there are warnings but no errors. Source health has 1 healthy source (not zero), candidates exist, and some documents were fetched. The output can proceed to content_review for human inspection but should not auto-publish."
+    }
+  }
+}

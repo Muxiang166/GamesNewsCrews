@@ -1,0 +1,10 @@
+# Editorial intent bonuses for story ranking within theme sections.
+# These bonuses are added to a story's base score during section sorting.
+# Higher bonuses give stories with that editorial intent priority placement.
+editorial_bonus:
+  core_game_update: 12.0
+  core_game_report: 8.0
+  platform_business: 3.0
+  personal_or_sentiment: -10.0
+  community_or_meme: 2.0
+  general: 0.0

@@ -1,0 +1,101 @@
+{
+  "_comment": "H-EVI-001: Verifies that build_evidence_chunks splits a fetched document into overlapping chunks with traceable chunk_id, quote, source, and metadata. Each chunk must be independently traceable back to the source document via chunk_id (format: source_id-document_index-chunk_index).",
+  "harness_id": "H-EVI-001-evidence-chunks",
+  "description": "A candidate from ign.cn about a PlayStation game release, paired with a simulated fetched document. The fixture validates that evidence chunks contain proper chunk_id, quote text that overlaps by 120 chars, and metadata propagation.",
+  "inputs": {
+    "candidate": {
+      "title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+      "url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+      "source_id": "ignchina",
+      "snippet": "Sucker Punch 新作《羊蹄山》正式公布将于2026年9月15日登陆 PS5 和 PC 平台",
+      "query": "羊蹄山 发售日 PS5 PC",
+      "tags": ["official_news", "sony", "ps5"],
+      "theme_section": "sony",
+      "heat_score": 88.5,
+      "published_at": "2026-06-16T04:00:00+00:00",
+      "observed_at": "2026-06-16T05:00:00+00:00",
+      "candidate_type": "news",
+      "candidate_lane": "main"
+    },
+    "document": {
+      "candidate_url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+      "title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+      "source_id": "ignchina",
+      "content": "Sucker Punch Productions 今日正式宣布，旗下备受期待的开放世界动作冒险游戏《羊蹄山》（Ghost of Yotei）将于2026年9月15日全球同步发售，登陆 PlayStation 5 和 PC（Steam、Epic Games Store）平台。本作是《对马岛之魂》的精神续作，故事背景设定在1603年的日本北海道羊蹄山地区。玩家将扮演一名流浪武士，在广袤的开放世界中探索、战斗并揭开羊蹄山隐藏的秘密。游戏总监在采访中表示，《羊蹄山》将继承前作备受好评的战斗系统，并引入全新的四季变换机制和动态天气系统。不同季节将影响地形可通过性和敌人行为模式。游戏支持 PS5 Pro 增强，包括光线追踪反射、4K 60fps 性能模式以及 DualSense 无线控制器的自适应扳机和触觉反馈功能。预购将于2026年7月1日开启，预购玩家将获得独家「浪人」服装套装和早期解锁的「龙牙」太刀。标准版售价69.99美元，数字豪华版售价89.99美元，包含季票和数字美术集。",
+      "author": "IGN China 编辑部",
+      "published_at": "2026-06-16T04:00:00+00:00",
+      "fetched_at": "2026-06-16T05:30:00+00:00",
+      "image_urls": ["https://example.invalid/ghost-of-yotei-keyart.jpg"],
+      "metadata": {
+        "source_kind": "media",
+        "candidate_type": "news",
+        "region": "zh_cn",
+        "language": "zh-cn"
+      }
+    },
+    "chunking_params": {
+      "max_chars": 700,
+      "overlap": 120
+    }
+  },
+  "expected_output": {
+    "total_chunks": 3,
+    "chunks": [
+      {
+        "chunk_id": "ignchina-0-0",
+        "url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+        "source_id": "ignchina",
+        "source_kind": "media",
+        "title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+        "published_at": "2026-06-16T04:00:00+00:00",
+        "observed_at": null,
+        "quote_contains": ["Sucker Punch Productions", "2026年9月15日", "PlayStation 5", "对马岛之魂"],
+        "quote_not_contains": ["预购将于"],
+        "credibility_hint": "news",
+        "document_index": 0,
+        "chunk_index": 0,
+        "metadata_has_keys": ["source_kind", "candidate_type", "region", "language"]
+      },
+      {
+        "chunk_id": "ignchina-0-1",
+        "url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+        "source_id": "ignchina",
+        "source_kind": "media",
+        "title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+        "published_at": "2026-06-16T04:00:00+00:00",
+        "observed_at": null,
+        "quote_contains": ["战斗系统", "四季变换", "动态天气"],
+        "quote_overlaps_previous_chunk": true,
+        "credibility_hint": "news",
+        "document_index": 0,
+        "chunk_index": 1,
+        "metadata_has_keys": ["source_kind", "candidate_type", "region", "language"]
+      },
+      {
+        "chunk_id": "ignchina-0-2",
+        "url": "https://www.ignchina.com/ghost-of-yotei-release-date",
+        "source_id": "ignchina",
+        "source_kind": "media",
+        "title": "《羊蹄山》正式公布发售日：2026年9月15日登陆PS5与PC",
+        "published_at": "2026-06-16T04:00:00+00:00",
+        "observed_at": null,
+        "quote_contains": ["预购将于2026年7月1日", "69.99美元", "数字豪华版"],
+        "credibility_hint": "news",
+        "document_index": 0,
+        "chunk_index": 2,
+        "metadata_has_keys": ["source_kind", "candidate_type", "region", "language"]
+      }
+    ]
+  },
+  "validation_rules": {
+    "chunk_id_format": "source_id-document_index-chunk_index",
+    "all_chunks_have_url": true,
+    "all_chunks_have_source_id": true,
+    "all_chunks_have_quote": true,
+    "document_index_consistent": true,
+    "chunk_index_sequential": true,
+    "metadata_propagated": true,
+    "overlap_present": true,
+    "max_quote_length": 700
+  }
+}

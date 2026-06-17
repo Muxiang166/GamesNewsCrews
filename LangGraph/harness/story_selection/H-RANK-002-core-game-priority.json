@@ -1,0 +1,326 @@
+{
+  "_comment": "H-RANK-002: In the Nintendo Switch (NS) section, core game details (release dates, new features, official announcements with editorial_intent 'core_game_update' or 'core_game_report') must rank higher than generic discussion topics (e.g., platform sales discussions, community sentiment, accessory news). The editorial_focus bonus (core_game_update +12, core_game_report +8) should push core game stories above general platform topics.",
+  "harness_id": "H-RANK-002-core-game-priority",
+  "description": "Seven Nintendo-section story candidates vying for top spots. Three are core game stories (new Zelda gameplay details, Pokemon Gen 10 launch date, Metroid Prime 4 final trailer), four are platform/general topics (Switch 2 sales milestone, Nintendo stock analysis, Joy-Con drift lawsuit update, Nintendo eShop summer sale). Core game stories should occupy the top 3 positions due to editorial_focus bonuses.",
+  "inputs": {
+    "story_candidates": [
+      {
+        "id": "story_zelda_tears_dlc",
+        "title": "《塞尔达传说：王国之泪》大型DLC「深渊回响」正式定档2026年8月",
+        "url": "https://www.nintendo.co.jp/topics/2026/06/zelda-totk-dlc.html",
+        "source_id": "nintendo",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 16.0,
+        "story_editorial_intent": "core_game_update",
+        "editorial_intent": "core_game_update",
+        "editorial_priority": 9,
+        "score": 92.0,
+        "story_score": 92.0,
+        "heat_score": 86.0,
+        "discussion_score": 78.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 78,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.nintendo.co.jp/topics/2026/06/zelda-totk-dlc.html"],
+        "source_language": "zh",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "《塞尔达传说：王国之泪》大型DLC「深渊回响」正式定档2026年8月",
+            "check_status": "verified",
+            "confidence": 0.94,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_pokemon_gen10_date",
+        "title": "《宝可梦 朱/紫》续作定档2026年11月 Switch 2独占",
+        "url": "https://www.pokemon.co.jp/info/2026/06/gen10-date.html",
+        "source_id": "pokemon_company",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 14.0,
+        "story_editorial_intent": "core_game_update",
+        "editorial_intent": "core_game_update",
+        "editorial_priority": 9,
+        "score": 90.0,
+        "story_score": 90.0,
+        "heat_score": 84.0,
+        "discussion_score": 74.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 74,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.pokemon.co.jp/info/2026/06/gen10-date.html"],
+        "source_language": "zh",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "《宝可梦 朱/紫》续作定档2026年11月 Switch 2独占",
+            "check_status": "verified",
+            "confidence": 0.92,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_metroid_prime4",
+        "title": "Metroid Prime 4 Beyond final gameplay trailer showcases Sylux boss fight",
+        "url": "https://www.ign.com/articles/metroid-prime-4-sylux-gameplay",
+        "source_id": "ign",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 12.0,
+        "story_editorial_intent": "core_game_report",
+        "editorial_intent": "core_game_report",
+        "editorial_priority": 7,
+        "score": 85.0,
+        "story_score": 85.0,
+        "heat_score": 80.0,
+        "discussion_score": 64.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 64,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.ign.com/articles/metroid-prime-4-sylux-gameplay"],
+        "source_language": "en",
+        "source_preference": "english_ign_fallback",
+        "claims": [
+          {
+            "text": "Metroid Prime 4 Beyond final gameplay trailer showcases Sylux boss fight",
+            "check_status": "likely",
+            "confidence": 0.82,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_switch2_sales_milestone",
+        "title": "Switch 2全球销量突破2000万台 任天堂上调财年预期",
+        "url": "https://www.gamersky.com/news/202606/switch2-sales-20m.shtml",
+        "source_id": "gamersky",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 6.0,
+        "story_editorial_intent": "platform_business",
+        "editorial_intent": "platform_business",
+        "editorial_priority": 5,
+        "score": 78.0,
+        "story_score": 78.0,
+        "heat_score": 74.0,
+        "discussion_score": 48.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 48,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.gamersky.com/news/202606/switch2-sales-20m.shtml"],
+        "source_language": "zh",
+        "source_preference": "chinese_source_preferred",
+        "claims": [
+          {
+            "text": "Switch 2全球销量突破2000万台 任天堂上调财年预期",
+            "check_status": "verified",
+            "confidence": 0.88,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_nintendo_stock",
+        "title": "任天堂股价创历史新高 机构看好Switch 2长期前景",
+        "url": "https://www.bloomberg.com/news/2026-06/nintendo-stock-record-high",
+        "source_id": "bloomberg",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "market",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 2.0,
+        "story_editorial_intent": "platform_business",
+        "editorial_intent": "platform_business",
+        "editorial_priority": 4,
+        "score": 72.0,
+        "story_score": 72.0,
+        "heat_score": 68.0,
+        "discussion_score": 38.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 38
+        },
+        "source_urls": ["https://www.bloomberg.com/news/2026-06/nintendo-stock-record-high"],
+        "source_language": "zh",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "任天堂股价创历史新高 机构看好Switch 2长期前景",
+            "check_status": "likely",
+            "confidence": 0.76,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_joycon_lawsuit",
+        "title": "Joy-Con漂移集体诉讼最新进展：任天堂同意延长保修至3年",
+        "url": "https://www.eurogamer.net/joycon-drift-lawsuit-settlement-2026",
+        "source_id": "eurogamer",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 0.0,
+        "story_editorial_intent": "general",
+        "editorial_intent": "general",
+        "editorial_priority": 2,
+        "score": 68.0,
+        "story_score": 68.0,
+        "heat_score": 60.0,
+        "discussion_score": 32.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 32
+        },
+        "source_urls": ["https://www.eurogamer.net/joycon-drift-lawsuit-settlement-2026"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Joy-Con漂移集体诉讼最新进展：任天堂同意延长保修至3年",
+            "check_status": "likely",
+            "confidence": 0.74,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_eshop_sale",
+        "title": "任天堂eShop夏季促销开启 多款第一方游戏7折",
+        "url": "https://www.nintendolife.com/news/2026/06/eshop-summer-sale-2026",
+        "source_id": "nintendolife",
+        "candidate_type": "deal",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 2.0,
+        "story_editorial_intent": "general",
+        "editorial_intent": "general",
+        "editorial_priority": 1,
+        "score": 64.0,
+        "story_score": 64.0,
+        "heat_score": 56.0,
+        "discussion_score": 28.0,
+        "discussion_level": "weak",
+        "discussion_profile": {
+          "level": "weak",
+          "score": 28
+        },
+        "source_urls": ["https://www.nintendolife.com/news/2026/06/eshop-summer-sale-2026"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "任天堂eShop夏季促销开启 多款第一方游戏7折",
+            "check_status": "likely",
+            "confidence": 0.70,
+            "claim_type": "deal",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      }
+    ]
+  },
+  "expected_output": {
+    "theme_sections": {
+      "version": "0.1.0",
+      "per_section_limit": 20,
+      "final_per_section_limit": 10,
+      "sections": [
+        {
+          "id": "nintendo",
+          "label": "任天堂",
+          "pool_count": 7,
+          "selected_count": 7,
+          "stories": [
+            {"id": "story_zelda_tears_dlc", "editorial_intent": "core_game_update", "rank": 1},
+            {"id": "story_pokemon_gen10_date", "editorial_intent": "core_game_update", "rank": 2},
+            {"id": "story_metroid_prime4", "editorial_intent": "core_game_report", "rank": 3},
+            {"id": "story_switch2_sales_milestone", "editorial_intent": "platform_business", "rank": 4},
+            {"id": "story_nintendo_stock", "editorial_intent": "platform_business", "rank": 5},
+            {"id": "story_joycon_lawsuit", "editorial_intent": "general", "rank": 6},
+            {"id": "story_eshop_sale", "editorial_intent": "general", "rank": 7}
+          ]
+        }
+      ]
+    },
+    "verification_notes": {
+      "core_game_top_3": "The top 3 stories by sort key (score + editorial bonus) are all core game stories: Zelda DLC (core_game_update +12 -> 104), Pokemon Gen 10 (core_game_update +12 -> 102), Metroid Prime 4 (core_game_report +8 -> 93). The platform business stories (Switch 2 sales, Nintendo stock) have higher raw heat scores than the third core game story but their editorial_bonus is lower (platform_business +3), so they correctly sort below.",
+      "editorial_bonus_mechanism": {
+        "core_game_update": 12.0,
+        "core_game_report": 8.0,
+        "platform_business": 3.0,
+        "community_or_meme": 2.0,
+        "general": 0.0,
+        "personal_or_sentiment": -10.0
+      },
+      "sort_key_math": {
+        "story_zelda_tears_dlc": "92.0 + 12.0 = 104.0 (core_game_update)",
+        "story_pokemon_gen10_date": "90.0 + 12.0 = 102.0 (core_game_update)",
+        "story_metroid_prime4": "85.0 + 8.0 = 93.0 (core_game_report)",
+        "story_switch2_sales_milestone": "78.0 + 3.0 = 81.0 (platform_business)",
+        "story_nintendo_stock": "72.0 + 3.0 = 75.0 (platform_business)",
+        "story_joycon_lawsuit": "68.0 + 0.0 = 68.0 (general)",
+        "story_eshop_sale": "64.0 + 0.0 = 64.0 (general)"
+      },
+      "generic_not_dominating": "The two 'general' editorial_intent stories (Joy-Con lawsuit, eShop sale) correctly rank at the bottom. This is important because readers coming for game news should see game content first, not platform maintenance or deal announcements."
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "_comment": "H-HEAT-002: Verifies that same-game old discussion (published >48 hours ago) is explicitly excluded from the current 48h heat window by filter_and_rank_candidates. The fixture includes a hot-discussion old candidate and a fresh candidate for the same game — only the fresh one should pass.",
+  "harness_id": "H-HEAT-002-old-discussion",
+  "description": "Two candidates for the same game event (Marathon reboot announcement). One is 72 hours old with high engagement that would otherwise score well; the other is 6 hours old with moderate engagement. The fixture validates that filter_and_rank_candidates rejects the old candidate with reject_reason='outside_time_window' and accepts only the fresh one.",
+  "inputs": {
+    "run_params": {
+      "lookback_hours": 48,
+      "now": "2026-06-16T12:00:00+00:00",
+      "window_start": "2026-06-14T12:00:00+00:00"
+    },
+    "sources": {
+      "ign": {
+        "id": "ign",
+        "name": "IGN",
+        "kind": "media",
+        "priority": 70,
+        "collector": "media_rss",
+        "collector_config": {}
+      },
+      "bilibili": {
+        "id": "bilibili",
+        "name": "Bilibili",
+        "kind": "community",
+        "priority": 60,
+        "collector": "community_listing",
+        "collector_config": {}
+      }
+    },
+    "candidates": [
+      {
+        "_description": "OLD discussion: 72 hours old, high heat — MUST be rejected as outside_time_window",
+        "title": "Bungie《Marathon》重启版正式公布 玩家社区炸开了锅",
+        "url": "https://www.ign.com/articles/bungie-marathon-reboot-announced",
+        "source_id": "ign",
+        "snippet": "Bungie 在最新发布会中正式公布了《Marathon》重启版，采用科幻撤离射击玩法，玩家社区反应热烈",
+        "tags": ["official_news", "hot_discussion"],
+        "heat_signals": {
+          "views": 1200000,
+          "likes": 85000,
+          "comments": 18000,
+          "shares": 9500
+        },
+        "published_at": "2026-06-13T10:00:00+00:00",
+        "observed_at": "2026-06-13T11:00:00+00:00",
+        "age_hours": 74,
+        "expected_heat_score_if_accepted": 88.0,
+        "should_be_rejected": true,
+        "expected_reject_reason": "outside_time_window"
+      },
+      {
+        "_description": "FRESH discussion: 6 hours old, same game, moderate heat — MUST be accepted",
+        "title": "《Marathon》重启版实机演示流出 撤离玩法细节曝光",
+        "url": "https://www.bilibili.com/video/BV1aa111a7aa",
+        "source_id": "bilibili",
+        "snippet": "B站UP主发布了《Marathon》重启版最新实机演示，展示了撤离射击玩法和地图设计",
+        "tags": ["gameplay", "hot_discussion", "player_story"],
+        "heat_signals": {
+          "views": 580000,
+          "likes": 42000,
+          "comments": 8500,
+          "danmaku": 4500,
+          "shares": 3200
+        },
+        "published_at": "2026-06-16T06:00:00+00:00",
+        "observed_at": "2026-06-16T07:00:00+00:00",
+        "age_hours": 6,
+        "should_be_rejected": false,
+        "expected_heat_score_min": 60.0
+      },
+      {
+        "_description": "OLD discussion with high engagement on Bilibili — 96 hours old, MUST be rejected",
+        "title": "玩家吵翻了！《Marathon》重启版取消单人战役到底对不对？",
+        "url": "https://www.bilibili.com/video/BV1bb222b8bb",
+        "source_id": "bilibili",
+        "snippet": "《Marathon》重启版确认纯多人撤离玩法无单人战役，B站评论区玩家激烈争论这种做法是否合理",
+        "tags": ["controversy", "hot_discussion", "player_story"],
+        "heat_signals": {
+          "views": 950000,
+          "likes": 62000,
+          "comments": 22000,
+          "danmaku": 12000,
+          "shares": 7800
+        },
+        "published_at": "2026-06-12T06:00:00+00:00",
+        "observed_at": "2026-06-12T08:00:00+00:00",
+        "age_hours": 102,
+        "should_be_rejected": true,
+        "expected_reject_reason": "outside_time_window"
+      },
+      {
+        "_description": "FRESH: 1 hour old, low engagement but within window — MUST be accepted",
+        "title": "Marathon重启版预购页面已在Steam上线",
+        "url": "https://store.steampowered.com/app/9999999",
+        "source_id": "ign",
+        "snippet": "Steam商店已上线《Marathon》重启版预购页面，暂未公布价格和确切发售日期",
+        "tags": ["official_news"],
+        "heat_signals": {
+          "likes": 120,
+          "comments": 45
+        },
+        "published_at": "2026-06-16T11:00:00+00:00",
+        "observed_at": "2026-06-16T11:30:00+00:00",
+        "age_hours": 1,
+        "should_be_rejected": false,
+        "expected_heat_score_max": 40.0
+      },
+      {
+        "_description": "OLD: exactly at window boundary — timestamps at exactly 48h ago should be rejected (strict < window_start check)",
+        "title": "《Marathon》重启版早期开发截图曝光 画面风格致敬初代",
+        "url": "https://example.invalid/marathon-reboot-early-screenshots",
+        "source_id": "ign",
+        "snippet": "内部人士曝光了几张《Marathon》重启版的早期开发截图，画面风格明显致敬1994年初代作品",
+        "tags": ["rumor"],
+        "heat_signals": {
+          "likes": 3500,
+          "comments": 980,
+          "shares": 450
+        },
+        "published_at": "2026-06-14T11:59:00+00:00",
+        "observed_at": "2026-06-14T12:00:00+00:00",
+        "age_hours": 48.01,
+        "should_be_rejected": true,
+        "expected_reject_reason": "outside_time_window",
+        "_boundary_note": "published_at is just over 48h ago; the strict < window_start comparison should reject"
+      }
+    ],
+    "memory_records": {}
+  },
+  "expected_output": {
+    "accepted_count": 2,
+    "rejected_count": 3,
+    "accepted_titles": [
+      "《Marathon》重启版实机演示流出 撤离玩法细节曝光",
+      "Marathon重启版预购页面已在Steam上线"
+    ],
+    "rejected": [
+      {
+        "title_keyword": "正式公布",
+        "reject_reason": "outside_time_window",
+        "age_hours": 74
+      },
+      {
+        "title_keyword": "吵翻了",
+        "reject_reason": "outside_time_window",
+        "age_hours": 102
+      },
+      {
+        "title_keyword": "早期开发截图",
+        "reject_reason": "outside_time_window",
+        "age_hours": 48.01,
+        "_boundary_note": "just past the 48h cutoff"
+      }
+    ]
+  },
+  "validation_rules": {
+    "lookback_hours": 48,
+    "old_discussion_rejected": true,
+    "fresh_accepted": true,
+    "reject_reason_is_outside_time_window": true,
+    "window_boundary_strict": true,
+    "memory_status_not_late_repost_for_unseen_items": true,
+    "heat_score_not_computed_for_rejected": true,
+    "candidates_sorted_by_heat_score_descending": true
+  }
+}

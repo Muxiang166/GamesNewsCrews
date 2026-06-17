@@ -1,0 +1,130 @@
+{
+  "_comment": "H-VER-001: Evidenced fact (at least 'likely') vs unevidenced rumor (not written as fact). The verification engine must distinguish between a claim backed by document evidence (supporting_evidence_overlap -> 'likely' or 'verified') and a community rumor with no supporting evidence (missing_evidence -> 'reject'). Rumors must NOT be presented as confirmed facts.",
+  "harness_id": "H-VER-001-fact-vs-rumor",
+  "description": "Two claims from the same story: (1) Sony officially announced PS5 price cut — backed by document evidence from the official PlayStation Blog; (2) community rumor that Sony is exiting the handheld market — no evidence whatsoever, should be rejected. The verification must label the evidenced claim as at least 'likely' and the rumor as 'reject' with missing_evidence reason.",
+  "inputs": {
+    "claims": [
+      {
+        "text": "索尼官方宣布PS5全型号永久降价50美元",
+        "story_id": "story_ps5_price_cut",
+        "source_urls": [
+          "https://blog.playstation.com/2026/06/ps5-price-adjustment/"
+        ],
+        "check_status": "unchecked",
+        "confidence": 0.0,
+        "claim_type": "platform_price",
+        "extraction_status": "candidate_claim",
+        "evidence_chunk_ids": [
+          "ev_ps5_blog_001",
+          "ev_ps5_blog_002"
+        ],
+        "missing_fields": [],
+        "metadata": {
+          "source_id": "playstation_blog",
+          "candidate_url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+          "candidate_type": "platform_price",
+          "heat_score": 82.0,
+          "extractor": "deterministic_candidate_claim_v0"
+        }
+      },
+      {
+        "text": "索尼或将退出掌机市场不再开发新PSP",
+        "story_id": "story_ps5_price_cut",
+        "source_urls": [
+          "https://tieba.baidu.com/p/psp-rumor-exit-handheld"
+        ],
+        "check_status": "unchecked",
+        "confidence": 0.0,
+        "claim_type": "rumor",
+        "extraction_status": "candidate_claim",
+        "evidence_chunk_ids": [],
+        "missing_fields": [
+          "evidence"
+        ],
+        "metadata": {
+          "source_id": "tieba",
+          "candidate_url": "https://tieba.baidu.com/p/psp-rumor-exit-handheld",
+          "candidate_type": "rumor",
+          "heat_score": 35.0,
+          "extractor": "deterministic_candidate_claim_v0"
+        }
+      }
+    ],
+    "evidence_chunks": [
+      {
+        "chunk_id": "ev_ps5_blog_001",
+        "url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+        "quote": "从2026年6月15日起，PlayStation 5数字版建议零售价下调至349.99美元，光驱版下调至399.99美元。这是PS5上市以来首次永久性价格调整。",
+        "chunk_index": 0
+      },
+      {
+        "chunk_id": "ev_ps5_blog_002",
+        "url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+        "quote": "此次价格调整适用于全球所有地区，各地区具体价格以当地PlayStation官方渠道公布为准。",
+        "chunk_index": 1
+      }
+    ]
+  },
+  "expected_output": {
+    "claim_verifications": [
+      {
+        "text": "索尼官方宣布PS5全型号永久降价50美元",
+        "story_id": "story_ps5_price_cut",
+        "source_urls": [
+          "https://blog.playstation.com/2026/06/ps5-price-adjustment/"
+        ],
+        "check_status": "likely",
+        "confidence": 0.72,
+        "claim_type": "platform_price",
+        "verification_reasons": [
+          "supporting_evidence_overlap"
+        ],
+        "verification_method": "deterministic_evidence_overlap_v0",
+        "support_score": 0.65,
+        "evidence": [
+          {
+            "chunk_id": "ev_ps5_blog_001",
+            "url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+            "quote": "从2026年6月15日起，PlayStation 5数字版建议零售价下调至349.99美元，光驱版下调至399.99美元。"
+          },
+          {
+            "chunk_id": "ev_ps5_blog_002",
+            "url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+            "quote": "此次价格调整适用于全球所有地区。"
+          }
+        ],
+        "metadata": {
+          "source_id": "playstation_blog",
+          "candidate_url": "https://blog.playstation.com/2026/06/ps5-price-adjustment/",
+          "candidate_type": "platform_price"
+        }
+      },
+      {
+        "text": "索尼或将退出掌机市场不再开发新PSP",
+        "story_id": "story_ps5_price_cut",
+        "source_urls": [
+          "https://tieba.baidu.com/p/psp-rumor-exit-handheld"
+        ],
+        "check_status": "reject",
+        "confidence": 0.0,
+        "claim_type": "rumor",
+        "verification_reasons": [
+          "missing_evidence"
+        ],
+        "verification_method": "deterministic_evidence_overlap_v0",
+        "support_score": 0.0,
+        "evidence": [],
+        "metadata": {
+          "source_id": "tieba",
+          "candidate_url": "https://tieba.baidu.com/p/psp-rumor-exit-handheld",
+          "candidate_type": "rumor"
+        }
+      }
+    ],
+    "verification_notes": {
+      "evidenced_claim": "The PS5 price cut claim is backed by two evidence chunks from the official PlayStation Blog. The support_score of 0.65 exceeds the 0.45 threshold for platform_price claims, yielding check_status 'likely' with confidence 0.72. This claim can be published with source attribution.",
+      "unevidenced_rumor": "The Sony handheld exit rumor has zero evidence chunks. The verifier correctly assigns check_status 'reject' with confidence 0.0 and reason 'missing_evidence'. This claim must NOT be written as fact in any output.",
+      "downstream_behavior": "In the story_ranking stage, only claims with check_status in {'verified', 'likely', 'credible_rumor', ...} are publishable. The 'reject' status claim will be excluded from story candidates."
+    }
+  }
+}

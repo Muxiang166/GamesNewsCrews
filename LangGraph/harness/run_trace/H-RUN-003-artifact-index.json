@@ -1,0 +1,60 @@
+{
+  "_comment": "Harness case H-RUN-003: artifact_index snapshot used to verify that files written to disk match their recorded size_bytes and sha256 digests. Used by the integrity-check harness to detect partial writes, truncation, or silent corruption.",
+  "run_id": "run-20260616-003",
+  "artifact_index": [
+    {
+      "artifact_key": "raw_news_candidates",
+      "path": "artifacts/run-20260616-003/raw_news_candidates.jsonl",
+      "stage": "collection",
+      "schema_version": "1.0.0",
+      "record_count": 156,
+      "size_bytes": 312940,
+      "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    },
+    {
+      "artifact_key": "evidence_claims",
+      "path": "artifacts/run-20260616-003/evidence_claims.jsonl",
+      "stage": "claim_extraction",
+      "schema_version": "1.0.0",
+      "record_count": 412,
+      "size_bytes": 542300,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "artifact_key": "verification_results",
+      "path": "artifacts/run-20260616-003/verification_results.jsonl",
+      "stage": "evidence_verification",
+      "schema_version": "1.0.0",
+      "record_count": 412,
+      "size_bytes": 678920,
+      "sha256": "6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090"
+    },
+    {
+      "artifact_key": "deduplicated_candidates",
+      "path": "artifacts/run-20260616-003/deduplicated_candidates.jsonl",
+      "stage": "deduplication",
+      "schema_version": "1.0.0",
+      "record_count": 103,
+      "size_bytes": 208740,
+      "sha256": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+    },
+    {
+      "artifact_key": "scored_candidates",
+      "path": "artifacts/run-20260616-003/scored_candidates.jsonl",
+      "stage": "ranking",
+      "schema_version": "1.0.0",
+      "record_count": 103,
+      "size_bytes": 226100,
+      "sha256": "3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278"
+    },
+    {
+      "artifact_key": "run_diagnostics",
+      "path": "artifacts/run-20260616-003/run_diagnostics.json",
+      "stage": "diagnostics",
+      "schema_version": "1.0.0",
+      "record_count": 1,
+      "size_bytes": 9216,
+      "sha256": "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+    }
+  ]
+}

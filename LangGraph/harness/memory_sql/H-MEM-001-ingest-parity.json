@@ -1,0 +1,61 @@
+{
+  "_comment": "MEM-001: After ingesting a small output_dir of collected artifacts (scraped pages, API responses, images), the SQLite row counts for each artifact table must match the artifact record counts produced by the collector. This ensures no silent drops or duplications during the SQLite write path.",
+  "test": "H-MEM-001",
+  "layer": "memory_sql",
+  "scenario": {
+    "description": "A small output_dir contains 5 scraped HTML pages, 3 API JSON responses, and 2 downloaded images (10 artifacts total). After the memory layer ingests them into SQLite, row counts across the relevant tables must equal the artifact counts.",
+    "input": {
+      "output_dir": "fixtures/small_collector_run/",
+      "artifact_manifest": {
+        "scraped_pages": 5,
+        "api_responses": 3,
+        "images": 2,
+        "total_artifacts": 10
+      },
+      "artifact_details": {
+        "scraped_pages": [
+          { "id": "sp-001", "url": "https://example.com/news/a", "bytes": 45210 },
+          { "id": "sp-002", "url": "https://example.com/news/b", "bytes": 38120 },
+          { "id": "sp-003", "url": "https://example.com/news/c", "bytes": 29980 },
+          { "id": "sp-004", "url": "https://example.com/news/d", "bytes": 51100 },
+          { "id": "sp-005", "url": "https://example.com/news/e", "bytes": 40330 }
+        ],
+        "api_responses": [
+          { "id": "api-001", "endpoint": "https://api.example.com/v1/games", "status": 200 },
+          { "id": "api-002", "endpoint": "https://api.example.com/v1/reviews", "status": 200 },
+          { "id": "api-003", "endpoint": "https://api.example.com/v1/releases", "status": 200 }
+        ],
+        "images": [
+          { "id": "img-001", "url": "https://cdn.example.com/a.jpg", "format": "jpeg" },
+          { "id": "img-002", "url": "https://cdn.example.com/b.png", "format": "png" }
+        ]
+      }
+    },
+    "expected_output": {
+      "sqlite_row_counts": {
+        "scraped_pages": 5,
+        "api_responses": 3,
+        "images": 2
+      },
+      "parity_check": {
+        "scraped_pages": { "manifest_count": 5, "sqlite_count": 5, "match": true },
+        "api_responses": { "manifest_count": 3, "sqlite_count": 3, "match": true },
+        "images": { "manifest_count": 2, "sqlite_count": 2, "match": true }
+      },
+      "total_ingested": 10,
+      "dropped": 0,
+      "duplicated": 0
+    },
+    "verification": {
+      "check": "all_table_row_counts_equal_manifest_counts",
+      "sqlite_db_path": ":memory:",
+      "queries": [
+        "SELECT COUNT(*) FROM scraped_pages",
+        "SELECT COUNT(*) FROM api_responses",
+        "SELECT COUNT(*) FROM images"
+      ],
+      "expected_counts": [5, 3, 2],
+      "allow_partial_ingest": false
+    }
+  }
+}

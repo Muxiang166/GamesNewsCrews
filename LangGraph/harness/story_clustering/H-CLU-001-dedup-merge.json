@@ -1,0 +1,169 @@
+{
+  "_comment": "H-CLU-001: Same URL or lightly modified title candidates should merge into one story cluster, but multi-source evidence from each duplicate should be preserved as distinct evidence chunks.",
+  "harness_id": "H-CLU-001-dedup-merge",
+  "description": "Two candidates about the same Zelda movie announcement — one from IGN (original report), one from a Chinese gaming site (repost with slightly different title). They share a canonical URL and similar normalized title, so they should merge into a single story_cluster. However, each candidate brings its own fetched document evidence that must be preserved for downstream claim verification.",
+  "inputs": {
+    "context_packs": [
+      {
+        "candidate": {
+          "title": "The Legend of Zelda live-action movie officially confirmed by Nintendo",
+          "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+          "source_id": "ign",
+          "snippet": "Nintendo has officially confirmed a live-action Legend of Zelda movie is in development with Sony Pictures, directed by Wes Ball.",
+          "query": "Zelda live-action movie confirmed",
+          "discovered_at": "2026-06-15T10:00:00+00:00",
+          "observed_at": "2026-06-15T09:30:00+00:00",
+          "heat_signals": {
+            "views": 450000,
+            "likes": 28000,
+            "comments": 4200,
+            "shares": 6500
+          },
+          "tags": ["official_news", "movie", "nintendo", "hot_discussion"],
+          "heat_score": 88.0,
+          "candidate_type": "news",
+          "discussion_profile": {
+            "level": "trending",
+            "score": 72,
+            "has_direct_engagement": true,
+            "has_multi_platform_discussion": true
+          }
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_ign_001",
+            "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+            "quote": "Nintendo announced today that a live-action Legend of Zelda film is in production with Sony Pictures. Director Wes Ball (The Maze Runner trilogy) is attached to helm the project.",
+            "chunk_index": 0
+          },
+          {
+            "chunk_id": "ev_ign_002",
+            "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+            "quote": "Shigeru Miyamoto will serve as producer alongside Avi Arad. The film is currently in early pre-production with no release date set.",
+            "chunk_index": 1
+          }
+        ],
+        "evidence_scope": "candidate_url",
+        "missing_fields": []
+      },
+      {
+        "candidate": {
+          "title": "任天堂正式确认《塞尔达传说》真人电影正在制作中",
+          "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+          "source_id": "gamersky",
+          "snippet": "任天堂官方确认《塞尔达传说》真人电影项目，由索尼影业联合制作，韦斯·鲍尔执导。此消息源自IGN报道。",
+          "query": "塞尔达传说 真人电影 任天堂 确认",
+          "discovered_at": "2026-06-15T11:00:00+00:00",
+          "observed_at": "2026-06-15T10:30:00+00:00",
+          "heat_signals": {
+            "views": 120000,
+            "likes": 8500,
+            "comments": 2100,
+            "shares": 3200
+          },
+          "tags": ["official_news", "movie", "nintendo", "hot_discussion"],
+          "heat_score": 72.0,
+          "candidate_type": "news",
+          "discussion_profile": {
+            "level": "discussed",
+            "score": 45,
+            "has_direct_engagement": true,
+            "has_multi_platform_discussion": false
+          }
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_gamersky_001",
+            "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+            "quote": "任天堂今日正式宣布，《塞尔达传说》真人电影项目已进入前期制作阶段，由索尼影业联合制作，导演韦斯·鲍尔将执导本片。宫本茂将担任制片人之一。",
+            "chunk_index": 0
+          },
+          {
+            "chunk_id": "ev_gamersky_002",
+            "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+            "quote": "目前官方尚未公布上映日期，但业界分析认为该片有望在2028年上映。此消息最早由IGN报道。",
+            "chunk_index": 1
+          }
+        ],
+        "evidence_scope": "candidate_url",
+        "missing_fields": []
+      }
+    ]
+  },
+  "expected_output": {
+    "story_clusters": [
+      {
+        "id": "story_a1b2c3d4e5f6",
+        "key": "title:news:nintendo has officially confirmed a live action legend of zelda movie",
+        "canonical_title": "Nintendo officially confirms The Legend of Zelda live-action movie",
+        "candidate_count": 2,
+        "source_urls": [
+          "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+          "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml"
+        ],
+        "merge_reason": "normalized_title",
+        "cluster_role": "primary_event",
+        "entity_signatures": [
+          "the legend of zelda",
+          "塞尔达传说"
+        ]
+      }
+    ],
+    "context_packs": [
+      {
+        "candidate": {
+          "title": "The Legend of Zelda live-action movie officially confirmed by Nintendo",
+          "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+          "source_id": "ign",
+          "snippet": "Nintendo has officially confirmed a live-action Legend of Zelda movie is in development with Sony Pictures, directed by Wes Ball.",
+          "story_cluster_id": "story_a1b2c3d4e5f6",
+          "story_cluster_key": "title:news:nintendo has officially confirmed a live action legend of zelda movie",
+          "canonical_story_title": "Nintendo officially confirms The Legend of Zelda live-action movie",
+          "story_cluster_merge_reason": "normalized_title"
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_ign_001",
+            "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+            "quote": "Nintendo announced today that a live-action Legend of Zelda film is in production with Sony Pictures."
+          },
+          {
+            "chunk_id": "ev_ign_002",
+            "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+            "quote": "Shigeru Miyamoto will serve as producer alongside Avi Arad."
+          }
+        ]
+      },
+      {
+        "candidate": {
+          "title": "任天堂正式确认《塞尔达传说》真人电影正在制作中",
+          "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+          "source_id": "gamersky",
+          "snippet": "任天堂官方确认《塞尔达传说》真人电影项目，由索尼影业联合制作，韦斯·鲍尔执导。",
+          "story_cluster_id": "story_a1b2c3d4e5f6",
+          "story_cluster_key": "title:news:nintendo has officially confirmed a live action legend of zelda movie",
+          "canonical_story_title": "Nintendo officially confirms The Legend of Zelda live-action movie",
+          "story_cluster_merge_reason": "normalized_title"
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_gamersky_001",
+            "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+            "quote": "任天堂今日正式宣布，《塞尔达传说》真人电影项目已进入前期制作阶段。"
+          },
+          {
+            "chunk_id": "ev_gamersky_002",
+            "url": "https://www.gamersky.com/news/202606/zelda-movie-confirmed.shtml",
+            "quote": "此消息最早由IGN报道。业界分析认为该片有望在2028年上映。"
+          }
+        ]
+      }
+    ],
+    "dedup_semantic_review_requests": [],
+    "verification_notes": {
+      "merge_correct": "Both candidates share substantially the same normalized title and report the same event. They SHOULD merge into a single story cluster.",
+      "evidence_preserved": "Each candidate retains its original evidence array. The IGN evidence provides the official English-language quotes; the Gamersky evidence provides the Chinese-language coverage and industry analyst commentary. Both evidence sources are accessible for downstream claim verification.",
+      "multi_source_benefit": "The merged cluster has 2 distinct source URLs, which improves the credibility scoring in story_ranking (source_count bonus)."
+    }
+  }
+}

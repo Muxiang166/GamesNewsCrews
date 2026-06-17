@@ -1,0 +1,72 @@
+{
+  "_comment": "Harness case H-COL-003: FetchResult for a source that returns HTTP 500 on every attempt. Because 5xx errors are retryable, the collector retries until the retry budget (max_retries=4, total backoff cap at 30s) is exhausted. All 5 attempts are recorded, and ok remains false. Used to verify that the retry loop respects its budget ceiling.",
+  "source_id": "rss-ign",
+  "source_url": "https://feeds.feedburner.com/ign/news",
+  "fetched_at": "2026-06-16T10:10:00Z",
+  "ok": false,
+  "http_status": 500,
+  "attempts": 5,
+  "max_retries": 4,
+  "retry_budget_exhausted": true,
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "timestamp": "2026-06-16T10:10:00Z",
+      "ok": false,
+      "http_status": 500,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 500: Internal Server Error",
+      "error_detail": "Server returned 500 Internal Server Error for URL https://feeds.feedburner.com/ign/news. Response headers included 'X-Cache: Error from cloudfront'.",
+      "retryable": true,
+      "backoff_seconds": 2.0
+    },
+    {
+      "attempt": 2,
+      "timestamp": "2026-06-16T10:10:02Z",
+      "ok": false,
+      "http_status": 500,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 500: Internal Server Error",
+      "error_detail": "Server returned 500 Internal Server Error for URL https://feeds.feedburner.com/ign/news. Response headers included 'X-Cache: Error from cloudfront'.",
+      "retryable": true,
+      "backoff_seconds": 4.0
+    },
+    {
+      "attempt": 3,
+      "timestamp": "2026-06-16T10:10:06Z",
+      "ok": false,
+      "http_status": 500,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 500: Internal Server Error",
+      "error_detail": "Server returned 500 Internal Server Error for URL https://feeds.feedburner.com/ign/news. Response headers included 'X-Cache: Error from cloudfront'.",
+      "retryable": true,
+      "backoff_seconds": 8.0
+    },
+    {
+      "attempt": 4,
+      "timestamp": "2026-06-16T10:10:14Z",
+      "ok": false,
+      "http_status": 500,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 500: Internal Server Error",
+      "error_detail": "Server returned 500 Internal Server Error for URL https://feeds.feedburner.com/ign/news. Response headers included 'X-Cache: Error from cloudfront'.",
+      "retryable": true,
+      "backoff_seconds": 16.0
+    },
+    {
+      "attempt": 5,
+      "timestamp": "2026-06-16T10:10:30Z",
+      "ok": false,
+      "http_status": 500,
+      "error_type": "HTTPError",
+      "error_message": "HTTP 500: Internal Server Error",
+      "error_detail": "Server returned 500 Internal Server Error for URL https://feeds.feedburner.com/ign/news. Response headers included 'X-Cache: Error from cloudfront'. Retry budget exhausted after this attempt.",
+      "retryable": true,
+      "backoff_seconds": null,
+      "retry_budget_exhausted": true
+    }
+  ],
+  "total_elapsed_seconds": 30.4,
+  "final_url": "https://feeds.feedburner.com/ign/news",
+  "cumulative_backoff_seconds": 30.0
+}

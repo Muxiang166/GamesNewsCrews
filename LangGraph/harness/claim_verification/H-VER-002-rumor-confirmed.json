@@ -1,0 +1,156 @@
+{
+  "_comment": "H-VER-002: An old community rumor (April 2026) about a Bloodborne remaster is now linked to a new official announcement (June 2026) via evidence chunk cross-referencing. The verification engine should detect that the old rumor claim now has supporting evidence from the new official source, upgrading its status. The new official claim should independently verify as 'likely' or 'verified'.",
+  "harness_id": "H-VER-002-rumor-confirmed",
+  "description": "Two claims about Bloodborne: (1) an old rumor from April claiming a Bloodborne PS5/PC remaster is in development (originally unverified); (2) a new June 2026 official PlayStation Showcase announcement confirming the Bloodborne remaster. The old rumor claim's evidence_chunk_ids now point to the new official evidence. The verification should produce: old rumor updated to 'likely' (now has evidence), new announcement verified as 'likely'.",
+  "inputs": {
+    "claims": [
+      {
+        "text": "爆料称《Bloodborne》将推出PS5和PC重制版，支持4K 60帧",
+        "story_id": "story_bloodborne_remaster",
+        "source_urls": [
+          "https://www.reddit.com/r/GamingLeaksAndRumours/comments/bloodborne_remaster_leak/"
+        ],
+        "check_status": "unchecked",
+        "confidence": 0.0,
+        "claim_type": "rumor",
+        "extraction_status": "candidate_claim",
+        "evidence_chunk_ids": [
+          "ev_bloodborne_official_001",
+          "ev_bloodborne_official_002"
+        ],
+        "missing_fields": [],
+        "metadata": {
+          "source_id": "reddit",
+          "candidate_url": "https://www.reddit.com/r/GamingLeaksAndRumours/comments/bloodborne_remaster_leak/",
+          "candidate_type": "rumor",
+          "heat_score": 65.0,
+          "discussion_profile": {
+            "level": "discussed",
+            "score": 42,
+            "has_direct_engagement": true
+          },
+          "extractor": "deterministic_candidate_claim_v0"
+        }
+      },
+      {
+        "text": "PlayStation Showcase正式公布《Bloodborne重制版》登陆PS5与PC平台，2026年冬季发售",
+        "story_id": "story_bloodborne_remaster",
+        "source_urls": [
+          "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/"
+        ],
+        "check_status": "unchecked",
+        "confidence": 0.0,
+        "claim_type": "news",
+        "extraction_status": "candidate_claim",
+        "evidence_chunk_ids": [
+          "ev_bloodborne_official_001",
+          "ev_bloodborne_official_002",
+          "ev_bloodborne_official_003"
+        ],
+        "missing_fields": [],
+        "metadata": {
+          "source_id": "playstation_blog",
+          "candidate_url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+          "candidate_type": "news",
+          "heat_score": 91.0,
+          "discussion_profile": {
+            "level": "trending",
+            "score": 78,
+            "has_direct_engagement": true,
+            "has_multi_platform_discussion": true
+          },
+          "extractor": "deterministic_candidate_claim_v0"
+        }
+      }
+    ],
+    "evidence_chunks": [
+      {
+        "chunk_id": "ev_bloodborne_official_001",
+        "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+        "quote": "We are thrilled to announce Bloodborne Remastered, coming to PlayStation 5 and PC in Winter 2026. Experience Yharnam like never before with native 4K resolution, 60fps performance, and enhanced textures.",
+        "chunk_index": 0
+      },
+      {
+        "chunk_id": "ev_bloodborne_official_002",
+        "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+        "quote": "Bloodborne Remastered has been rebuilt by Bluepoint Games in collaboration with FromSoftware. The remaster includes all original DLC content and quality-of-life improvements such as faster load times and photo mode.",
+        "chunk_index": 1
+      },
+      {
+        "chunk_id": "ev_bloodborne_official_003",
+        "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+        "quote": "Pre-orders for Bloodborne Remastered open on July 1, 2026. A special Hunter's Edition will include a physical artbook and soundtrack.",
+        "chunk_index": 2
+      }
+    ]
+  },
+  "expected_output": {
+    "claim_verifications": [
+      {
+        "text": "爆料称《Bloodborne》将推出PS5和PC重制版，支持4K 60帧",
+        "story_id": "story_bloodborne_remaster",
+        "source_urls": [
+          "https://www.reddit.com/r/GamingLeaksAndRumours/comments/bloodborne_remaster_leak/"
+        ],
+        "check_status": "rumor",
+        "confidence": 0.48,
+        "claim_type": "rumor",
+        "verification_reasons": [
+          "rumor_claim_with_evidence"
+        ],
+        "verification_method": "deterministic_evidence_overlap_v0",
+        "support_score": 0.58,
+        "evidence": [
+          {
+            "chunk_id": "ev_bloodborne_official_001",
+            "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+            "quote": "We are thrilled to announce Bloodborne Remastered, coming to PlayStation 5 and PC in Winter 2026. Experience Yharnam like never before with native 4K resolution, 60fps performance."
+          },
+          {
+            "chunk_id": "ev_bloodborne_official_002",
+            "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+            "quote": "Bloodborne Remastered has been rebuilt by Bluepoint Games in collaboration with FromSoftware."
+          }
+        ]
+      },
+      {
+        "text": "PlayStation Showcase正式公布《Bloodborne重制版》登陆PS5与PC平台，2026年冬季发售",
+        "story_id": "story_bloodborne_remaster",
+        "source_urls": [
+          "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/"
+        ],
+        "check_status": "likely",
+        "confidence": 0.75,
+        "claim_type": "news",
+        "verification_reasons": [
+          "supporting_evidence_overlap"
+        ],
+        "verification_method": "deterministic_evidence_overlap_v0",
+        "support_score": 0.72,
+        "evidence": [
+          {
+            "chunk_id": "ev_bloodborne_official_001",
+            "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+            "quote": "We are thrilled to announce Bloodborne Remastered, coming to PlayStation 5 and PC in Winter 2026."
+          },
+          {
+            "chunk_id": "ev_bloodborne_official_002",
+            "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+            "quote": "Bloodborne Remastered has been rebuilt by Bluepoint Games in collaboration with FromSoftware."
+          },
+          {
+            "chunk_id": "ev_bloodborne_official_003",
+            "url": "https://blog.playstation.com/2026/06/bloodborne-remaster-announced/",
+            "quote": "Pre-orders for Bloodborne Remastered open on July 1, 2026."
+          }
+        ]
+      }
+    ],
+    "verification_notes": {
+      "old_rumor_confirmed": "The April 2026 Reddit rumor claim now has evidence_chunk_ids pointing to the official June 2026 PlayStation Blog announcement. The verifier sees the rumor type with supporting evidence (support_score 0.58), so it assigns check_status 'rumor' (not 'reject') with confidence 0.48 and reason 'rumor_claim_with_evidence'. This is correct — the claim is still classified as a rumor (its original source is a leak), but the LLM verifier or human reviewer now has official evidence linked.",
+      "new_official_confirmation": "The official announcement claim has a strong support_score of 0.72 against the evidence, yielding check_status 'likely' with confidence 0.75. This can be published as a confirmed news story.",
+      "cross_reference": "The evidence_chunk_ids on the old rumor claim create a verifiable link between the rumor and the official confirmation. A downstream LLM verification request can now compare the rumor text against the official evidence to determine: (a) the rumor was accurate (confirmed), (b) the rumor was partially accurate (some details confirmed), or (c) the rumor was inaccurate (denied/contradicted).",
+      "story_merging": "Both claims share story_id 'story_bloodborne_remaster', so they will contribute to the same ranked story. The story's credibility_score should reflect both the official confirmation and the confirmed-rumor context."
+    }
+  }
+}

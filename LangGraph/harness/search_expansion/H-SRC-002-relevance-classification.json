@@ -1,0 +1,104 @@
+{
+  "_comment": "H-SRC-002: Verifies that search-result relevance classification correctly labels old_news, clickbait, same_event_repost, and similar_unrelated results. The four results are intentionally crafted to exercise every reject path and the allowed same_event path.",
+  "harness_id": "H-SRC-002-relevance-classification",
+  "description": "A relevance-classification request with 4 search results that each map to a distinct classification. The fixture ensures the LLM (or deterministic fallback) assigns the correct relevance label and reject_reason.",
+  "input": {
+    "request_id": "result-relevance-search-expansion-theme_gap-pc-1-bilibili",
+    "schema_version": "search_result_relevance_v0",
+    "prompt_name": "search_result_relevance.md",
+    "instructions": "Return JSON only. Classify whether each search result is a useful lead for the same games-news event. Do not verify the fact itself. Reject old news, generic discussion, similar but unrelated events, marketing reposts, and clickbait. If time is unclear, use unknown_time instead of guessing.",
+    "source_request_id": "search-expansion-theme_gap-pc-1",
+    "platform": "bilibili",
+    "query": "Steam 新作 深海迷航3 发售日 玩家讨论",
+    "candidate_title": "Steam 新作《深海迷航3》正式公布发售日 玩家社区热议",
+    "event_context": {
+      "active": false,
+      "event_name": "",
+      "signal_count": 0
+    },
+    "lookback_hours": 48,
+    "allowed_relevance": ["same_event", "same_game", "related_current", "unknown_time", "reject"],
+    "results": [
+      {
+        "title": "《深海迷航3》发售日公布！2026年12月抢先体验上线 官方确认将支持中文",
+        "url": "https://example.invalid/subnautica3-release-confirmed",
+        "snippet": "Unknown Worlds 官方今日正式宣布《深海迷航3》将于2026年12月登陆 Steam 抢先体验"
+      },
+      {
+        "title": "震惊！这款海洋生存游戏竟然让主播当场崩溃大哭！点击就送豪华版",
+        "url": "https://example.invalid/clickbait-ocean-game",
+        "snippet": "主播玩海洋游戏被吓哭！网友：这游戏太恐怖了！速来围观！点击领取福利！"
+      },
+      {
+        "title": "《深海迷航》初代发售回顾：从独立游戏到全球爆款的八年历程",
+        "url": "https://example.invalid/subnautica1-retrospective-2018",
+        "snippet": "回顾2018年《深海迷航》初代发售时的盛况，以及这个IP是如何一步步发展壮大的"
+      },
+      {
+        "title": "《深海迷航2：零度之下》全新MOD发布 新增多种海洋生物和水下基地",
+        "url": "https://example.invalid/subnautica2-below-zero-mod",
+        "snippet": "《深海迷航2》最新MOD增加了20种海洋生物，玩家可以在水下建造更复杂的基地设施"
+      }
+    ]
+  },
+  "expected_output": {
+    "request_id": "result-relevance-search-expansion-theme_gap-pc-1-bilibili",
+    "source_request_id": "search-expansion-theme_gap-pc-1",
+    "platform": "bilibili",
+    "parse_status": "parsed",
+    "results": [
+      {
+        "url": "https://example.invalid/subnautica3-release-confirmed",
+        "relevance": "same_event",
+        "same_game": true,
+        "same_event": true,
+        "current_window_valid": true,
+        "reject_reason": "",
+        "confidence": 0.95,
+        "risk_flags": []
+      },
+      {
+        "url": "https://example.invalid/clickbait-ocean-game",
+        "relevance": "reject",
+        "same_game": false,
+        "same_event": false,
+        "current_window_valid": false,
+        "reject_reason": "clickbait_or_engagement_bait",
+        "confidence": 0.88,
+        "risk_flags": ["sensational_title", "giveaway_prompt", "vague_game_reference"]
+      },
+      {
+        "url": "https://example.invalid/subnautica1-retrospective-2018",
+        "relevance": "reject",
+        "same_game": false,
+        "same_event": false,
+        "current_window_valid": false,
+        "reject_reason": "old_news_historical_retrospective",
+        "confidence": 0.90,
+        "risk_flags": ["outside_lookback_window", "historical_content"]
+      },
+      {
+        "url": "https://example.invalid/subnautica2-below-zero-mod",
+        "relevance": "reject",
+        "same_game": false,
+        "same_event": false,
+        "current_window_valid": false,
+        "reject_reason": "similar_unrelated_game_different_entry",
+        "confidence": 0.85,
+        "risk_flags": ["franchise_adjacent_not_same_entry", "mod_content_not_official_news"]
+      }
+    ]
+  },
+  "validation_rules": {
+    "result_count": 4,
+    "expected_classifications": {
+      "subnautica3-release-confirmed": "same_event",
+      "clickbait-ocean-game": "reject",
+      "subnautica1-retrospective-2018": "reject",
+      "subnautica2-below-zero-mod": "reject"
+    },
+    "reject_reasons_required": ["old_news_historical_retrospective", "clickbait_or_engagement_bait", "similar_unrelated_game_different_entry"],
+    "same_event_count_min": 1,
+    "reject_count_min": 3
+  }
+}

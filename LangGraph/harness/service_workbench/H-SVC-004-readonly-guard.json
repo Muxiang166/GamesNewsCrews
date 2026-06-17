@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1.0",
+  "harness_id": "H-SVC-004",
+  "issue_id": "SVC-004",
+  "layer": "service_workbench",
+  "title": "Workbench rejects unsafe reads, raw SQL, and publish actions",
+  "purpose": "Verify that the service layer remains an internal review workbench and does not become an unsafe file browser or publisher.",
+  "input": {
+    "requests": [
+      {
+        "endpoint": "GET /runs/run_20260617_001/artifacts/..%2F..%2F.env"
+      },
+      {
+        "endpoint": "POST /sql",
+        "body": {
+          "sql": "select * from sqlite_master"
+        }
+      },
+      {
+        "endpoint": "POST /runs/run_20260617_001/publish"
+      }
+    ]
+  },
+  "expected": {
+    "status_codes": [403, 404],
+    "notification": {
+      "severity": "warning",
+      "issue_id": "SVC-004",
+      "stage": "service_workbench"
+    },
+    "must_not": [
+      "execute arbitrary SQL",
+      "read files outside artifact manifest",
+      "publish to any external platform"
+    ]
+  },
+  "status": "implemented"
+}

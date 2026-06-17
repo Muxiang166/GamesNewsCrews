@@ -1,28 +1,65 @@
+# Add or edit news sources here.
+# Live collectors currently supported: media_rss, media_listing.
+# Use feed_url/feed_urls for RSS feeds and page_url/page_urls for listing pages.
+# Stub collectors are roadmap placeholders and will not run in live collection.
 sources:
   - id: nintendo
     name: Nintendo Official
     kind: official
-    url: https://www.nintendo.com/
-    region: global
+    url: https://www.nintendo.com/en-gb/
+    feed_url: https://www.nintendo.com/en-gb/news.xml
+    region: eu
     priority: 100
-    collector: official_site_stub
-    tags: [console, switch, first_party]
+    collector: media_rss
+    collector_config:
+      excluded_keywords:
+        - movie
+        - film
+        - universal
+        - theme park
+        - lego
+    tags: [official, console, switch, first_party]
   - id: playstation_blog
     name: PlayStation Blog
     kind: official
     url: https://blog.playstation.com/
+    feed_url: https://blog.playstation.com/feed/
     region: global
     priority: 95
-    collector: official_site_stub
-    tags: [console, sony, playstation]
+    collector: media_rss
+    collector_config:
+      required_any_keywords:
+        - playstation
+        - ps5
+        - ps4
+        - ps plus
+        - ps vr
+        - game
+        - games
+      excluded_keywords:
+        - movie
+        - film
+    tags: [official, console, sony, playstation]
   - id: xbox_wire
     name: Xbox Wire
     kind: official
-    url: https://news.xbox.com/
+    url: https://news.xbox.com/en-us/
+    feed_url: https://news.xbox.com/en-us/feed/
     region: global
     priority: 95
-    collector: official_site_stub
-    tags: [console, microsoft, xbox]
+    collector: media_rss
+    collector_config:
+      required_any_keywords:
+        - xbox
+        - game
+        - games
+        - game pass
+        - microsoft
+        - bethesda
+        - activision
+        - controller
+        - console
+    tags: [official, console, microsoft, xbox]
   - id: steam_news
     name: Steam News
     kind: official
@@ -35,25 +72,96 @@ sources:
     name: IGN
     kind: media
     url: https://www.ign.com/
+    page_entries:
+      - url: https://www.ign.com/news/playstation
+        label: IGN PlayStation News
+        theme_section: sony
+        tags: [playstation, sony, console]
+      - url: https://www.ign.com/news/nintendo
+        label: IGN Nintendo News
+        theme_section: nintendo
+        tags: [nintendo, switch, console]
+      - url: https://www.ign.com/news/xbox
+        label: IGN Xbox News
+        theme_section: microsoft
+        tags: [xbox, microsoft, console]
+      - url: https://www.ign.com/news/pc
+        label: IGN PC News
+        theme_section: pc
+        tags: [pc, steam]
     region: global
     priority: 85
-    collector: media_site_stub
+    collector: media_incremental_listing
+    collector_config:
+      max_pages_per_entry: 5
+      stale_page_stop_count: 1
+      detail_time_backfill_limit: 24
+      article_url_patterns:
+        - '^https://www\.ign\.com/articles/'
+      required_any_keywords:
+        - game
+        - games
+        - gaming
+        - xbox
+        - playstation
+        - ps5
+        - ps6
+        - nintendo
+        - switch
+        - steam
+        - pc
+        - controller
+        - gta
+        - grand theft auto
+        - batman
+        - lego
+        - review
+        - reviews
+        - metacritic
+        - release date
+        - pre-order
+        - preorder
+        - forza
+        - horizon
+        - pve
+        - patch
+        - copies
+        - rpg
+        - mmo
+        - bioware
+      excluded_keywords:
+        - game of thrones
+        - james bond
+        - jurassic park
+        - lord of the rings
+        - movie
+        - movies
+        - film
+        - dvd
+        - physical media
+        - electric bike
+        - recliner
+        - massage chair
+        - apple watch
+        - oled tv
     tags: [media, global]
   - id: gamespot
     name: GameSpot
     kind: media
     url: https://www.gamespot.com/
+    feed_url: https://www.gamespot.com/feeds/news/
     region: global
     priority: 80
-    collector: media_site_stub
+    collector: media_rss
     tags: [media, global]
   - id: pc_gamer
     name: PC Gamer
     kind: media
     url: https://www.pcgamer.com/
+    feed_url: https://www.pcgamer.com/rss/
     region: global
     priority: 78
-    collector: media_site_stub
+    collector: media_rss
     tags: [media, pc]
   - id: eurogamer
     name: Eurogamer
@@ -67,9 +175,62 @@ sources:
     name: 游民星空
     kind: media
     url: https://www.gamersky.com/
+    page_url: https://www.gamersky.com/news/
     region: cn
     priority: 84
-    collector: media_site_stub
+    collector: media_jsonp_paged_listing
+    collector_config:
+      pagination_url: https://db2.gamersky.com/LabelJsonpAjax.aspx
+      pagination_param: jsondata
+      response_body_field: body
+      response_total_pages_field: totalPages
+      max_pages_per_entry: 7
+      stale_page_stop_count: 1
+      request_payload_template:
+        type: updatenodelabel
+        isCache: true
+        cacheTime: 60
+        nodeId: "{node_id}"
+        isNodeId: "{is_node_id}"
+        page: "{page}"
+      pagination_entries:
+        - node_id: "11007"
+          label: Gamersky Today
+        - node_id: "129"
+          label: Gamersky Single Console
+        - node_id: "21160"
+          label: Gamersky NS
+          theme_section: nintendo
+        - node_id: "21163"
+          label: Gamersky Industry
+        - node_id: "20225"
+          label: Gamersky Online
+        - node_id: "20070"
+          label: Gamersky Hardware
+      section_node_theme_map:
+        "21160": nintendo  # NS
+        "20225": pc        # 网游
+        "20070": pc        # 硬件
+        "20260": supplemental  # 手游
+        "21163": supplemental  # 业界
+        "21217": supplemental  # 科技
+      allowed_url_patterns:
+        - '^https://www\.gamersky\.com/news/'
+        - '^https://www\.gamersky\.com/hardware/'
+        - '^https://ol\.gamersky\.com/news/'
+      excluded_keywords:
+        - papi酱
+        - 宠物用品
+        - 宠物
+        - 直播带货
+        - 带货
+        - 网红
+        - 明星
+        - 恋情
+        - 女友
+        - 男友
+        - 好莱坞
+        - 祖国人
     tags: [media, cn]
   - id: ali213
     name: 游侠网

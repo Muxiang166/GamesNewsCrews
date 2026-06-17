@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1.0",
+  "harness_id": "H-SVC-002",
+  "issue_id": "SVC-002",
+  "layer": "service_workbench",
+  "title": "Artifact browser only serves manifest-registered artifacts",
+  "purpose": "Verify that the workbench can browse stage artifacts while enforcing artifact_manifest boundaries.",
+  "input": {
+    "artifact_manifest": {
+      "artifacts": [
+        {
+          "artifact_key": "content_review_path",
+          "stage": "platform_content",
+          "path": "outputs/langgraph/v020_review/artifacts_by_stage/platform_content/content_review.md",
+          "schema_version": "0.1.0"
+        }
+      ]
+    },
+    "query": {
+      "endpoint": "GET /runs/run_20260617_001/artifacts/content_review_path"
+    }
+  },
+  "expected": {
+    "response": {
+      "artifact_key": "content_review_path",
+      "stage": "platform_content",
+      "content_type": "text/markdown"
+    },
+    "security": [
+      "reject artifact keys not present in artifact_manifest",
+      "reject path traversal",
+      "do not expose .env or arbitrary local files"
+    ]
+  },
+  "status": "implemented"
+}

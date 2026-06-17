@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1.0",
+  "harness_id": "H-SVC-003",
+  "issue_id": "SVC-003",
+  "layer": "service_workbench",
+  "title": "Human review capture writes review records only",
+  "purpose": "Verify that the workbench can save user scoring and style direction without mutating facts, rankings, claims, or platform drafts.",
+  "input": {
+    "request": {
+      "endpoint": "POST /runs/run_20260617_001/human-reviews",
+      "body": {
+        "story_id": "story_001",
+        "score": 4,
+        "style_direction": "more_game_content_first",
+        "notes": "保留游戏本体更新，下沉泛讨论。"
+      }
+    },
+    "existing_artifacts": [
+      "stories.json",
+      "claim_verifications.json",
+      "platform_posts.json"
+    ]
+  },
+  "expected": {
+    "writes": [
+      "human_reviews table or human_reviews.json"
+    ],
+    "must_not_modify": [
+      "stories.json",
+      "claim_verifications.json",
+      "platform_posts.json",
+      "publish_status"
+    ]
+  },
+  "status": "implemented"
+}

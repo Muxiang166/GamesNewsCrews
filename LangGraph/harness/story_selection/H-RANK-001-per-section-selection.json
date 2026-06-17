@@ -1,0 +1,674 @@
+{
+  "_comment": "H-RANK-001: Across 5 editorial sections (索尼/sony, 任天堂/nintendo, 微软/microsoft, PC, supplemental), stories must be selected per section. A single source (e.g., IGN) cannot dominate all sections. Each section must have independent source diversity.",
+  "harness_id": "H-RANK-001-per-section-selection",
+  "description": "Input: 15 story candidates distributed across 5 sections. The ranking and selection engine must pick up to 10 stories per section from a pool of 20. The verification checks: (a) each section has stories selected, (b) no single source_id dominates all 5 sections (>50% share across sections), (c) sections with high-heat stories are not starved by sections with many medium-heat stories.",
+  "inputs": {
+    "story_candidates": [
+      {
+        "id": "story_ps5_pro_price",
+        "title": "PS5 Pro officially priced at $699 launching November 2026",
+        "url": "https://blog.playstation.com/2026/06/ps5-pro-announced/",
+        "source_id": "playstation_blog",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "sony",
+        "theme_section_candidates": ["sony"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 12.0,
+        "score": 88.0,
+        "story_score": 88.0,
+        "heat_score": 85.0,
+        "discussion_score": 72.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 72,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://blog.playstation.com/2026/06/ps5-pro-announced/"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "PS5 Pro officially priced at $699 launching November 2026",
+            "check_status": "verified",
+            "confidence": 0.92,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_ps5_price_cut",
+        "title": "索尼宣布PS5全型号永久降价50美元",
+        "url": "https://www.gamersky.com/news/202606/ps5-price-cut.shtml",
+        "source_id": "gamersky",
+        "candidate_type": "platform_price",
+        "candidate_lane": "main",
+        "theme_section": "sony",
+        "theme_section_candidates": ["sony", "pc"],
+        "category": "market",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 10.0,
+        "score": 82.0,
+        "story_score": 82.0,
+        "heat_score": 78.0,
+        "discussion_score": 55.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 55,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.gamersky.com/news/202606/ps5-price-cut.shtml"],
+        "source_language": "zh",
+        "source_preference": "chinese_source_preferred",
+        "claims": [
+          {
+            "text": "索尼宣布PS5全型号永久降价50美元",
+            "check_status": "likely",
+            "confidence": 0.72,
+            "claim_type": "platform_price",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_ps_plus_june",
+        "title": "PlayStation Plus June 2026 free games lineup revealed",
+        "url": "https://www.ign.com/articles/ps-plus-june-2026-games",
+        "source_id": "ign",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "sony",
+        "theme_section_candidates": ["sony"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 6.0,
+        "score": 74.0,
+        "story_score": 74.0,
+        "heat_score": 68.0,
+        "discussion_score": 48.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 48
+        },
+        "source_urls": ["https://www.ign.com/articles/ps-plus-june-2026-games"],
+        "source_language": "en",
+        "source_preference": "english_ign_fallback",
+        "claims": [
+          {
+            "text": "PlayStation Plus June 2026 free games lineup revealed",
+            "check_status": "verified",
+            "confidence": 0.90,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_switch2_sales",
+        "title": "Nintendo Switch 2 surpasses 15 million units sold in first quarter",
+        "url": "https://www.nintendo.co.jp/ir/en/finance/2026_q1.html",
+        "source_id": "nintendo",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "theme_section_candidates": ["nintendo"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 10.0,
+        "score": 90.0,
+        "story_score": 90.0,
+        "heat_score": 88.0,
+        "discussion_score": 76.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 76,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.nintendo.co.jp/ir/en/finance/2026_q1.html"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Nintendo Switch 2 surpasses 15 million units sold in first quarter",
+            "check_status": "verified",
+            "confidence": 0.95,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_zelda_movie",
+        "title": "The Legend of Zelda live-action movie confirmed by Nintendo",
+        "url": "https://www.ign.com/articles/zelda-live-action-movie-confirmed",
+        "source_id": "ign",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "theme_section_candidates": ["nintendo"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 14.0,
+        "score": 86.0,
+        "story_score": 86.0,
+        "heat_score": 84.0,
+        "discussion_score": 70.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 70,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.ign.com/articles/zelda-live-action-movie-confirmed"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "The Legend of Zelda live-action movie confirmed by Nintendo",
+            "check_status": "verified",
+            "confidence": 0.88,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_pokemon_gen10",
+        "title": "Pokemon Gen 10 announced for Switch 2, open-world Kanto region return",
+        "url": "https://www.gematsu.com/news/pokemon-gen10-switch2-reveal",
+        "source_id": "gematsu",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "theme_section_candidates": ["nintendo"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 8.0,
+        "score": 80.0,
+        "story_score": 80.0,
+        "heat_score": 76.0,
+        "discussion_score": 52.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 52,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.gematsu.com/news/pokemon-gen10-switch2-reveal"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Pokemon Gen 10 announced for Switch 2, open-world Kanto region return",
+            "check_status": "likely",
+            "confidence": 0.78,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_xbox_handheld",
+        "title": "Xbox handheld device codenamed Keystone enters production",
+        "url": "https://www.theverge.com/2026/6/xbox-handheld-keystone-production",
+        "source_id": "theverge",
+        "candidate_type": "hardware_platform",
+        "candidate_lane": "main",
+        "theme_section": "microsoft",
+        "theme_section_candidates": ["microsoft", "pc"],
+        "category": "hardware_platform",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 12.0,
+        "score": 84.0,
+        "story_score": 84.0,
+        "heat_score": 80.0,
+        "discussion_score": 60.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 60,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.theverge.com/2026/6/xbox-handheld-keystone-production"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Xbox handheld device codenamed Keystone enters production",
+            "check_status": "likely",
+            "confidence": 0.75,
+            "claim_type": "hardware_platform",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_gamepass_price",
+        "title": "Game Pass Ultimate price increase to $19.99/month starting July 2026",
+        "url": "https://news.xbox.com/en-us/2026/06/game-pass-price-update/",
+        "source_id": "xbox_wire",
+        "candidate_type": "platform_price",
+        "candidate_lane": "main",
+        "theme_section": "microsoft",
+        "theme_section_candidates": ["microsoft", "pc"],
+        "category": "market",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 8.0,
+        "score": 78.0,
+        "story_score": 78.0,
+        "heat_score": 74.0,
+        "discussion_score": 50.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 50
+        },
+        "source_urls": ["https://news.xbox.com/en-us/2026/06/game-pass-price-update/"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Game Pass Ultimate price increase to $19.99/month starting July 2026",
+            "check_status": "verified",
+            "confidence": 0.90,
+            "claim_type": "platform_price",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_forza_horizon6",
+        "title": "Forza Horizon 6 set in Japan, revealed at Xbox Showcase 2026",
+        "url": "https://www.ign.com/articles/forza-horizon-6-japan-reveal",
+        "source_id": "ign",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "microsoft",
+        "theme_section_candidates": ["microsoft", "pc"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 16.0,
+        "score": 87.0,
+        "story_score": 87.0,
+        "heat_score": 86.0,
+        "discussion_score": 74.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 74,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.ign.com/articles/forza-horizon-6-japan-reveal"],
+        "source_language": "en",
+        "source_preference": "english_ign_fallback",
+        "claims": [
+          {
+            "text": "Forza Horizon 6 set in Japan, revealed at Xbox Showcase 2026",
+            "check_status": "verified",
+            "confidence": 0.91,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_steam_deck2",
+        "title": "Steam Deck 2 announced with OLED display and Zen 6 APU",
+        "url": "https://www.pcgamer.com/steam-deck-2-announcement-specs/",
+        "source_id": "pcgamer",
+        "candidate_type": "hardware_platform",
+        "candidate_lane": "main",
+        "theme_section": "pc",
+        "theme_section_candidates": ["pc"],
+        "category": "hardware_platform",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 14.0,
+        "score": 89.0,
+        "story_score": 89.0,
+        "heat_score": 87.0,
+        "discussion_score": 75.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 75,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.pcgamer.com/steam-deck-2-announcement-specs/"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Steam Deck 2 announced with OLED display and Zen 6 APU",
+            "check_status": "verified",
+            "confidence": 0.93,
+            "claim_type": "hardware_platform",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_elden_ring2",
+        "title": "Elden Ring 2 officially in development at FromSoftware",
+        "url": "https://www.ign.com/articles/elden-ring-2-announced",
+        "source_id": "ign",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "pc",
+        "theme_section_candidates": ["pc", "sony"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "可作为已验证事实使用",
+        "editorial_fit_score": 10.0,
+        "score": 85.0,
+        "story_score": 85.0,
+        "heat_score": 83.0,
+        "discussion_score": 68.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "level": "trending",
+          "score": 68,
+          "has_direct_engagement": true,
+          "has_multi_platform_discussion": true
+        },
+        "source_urls": ["https://www.ign.com/articles/elden-ring-2-announced"],
+        "source_language": "en",
+        "source_preference": "english_ign_fallback",
+        "claims": [
+          {
+            "text": "Elden Ring 2 officially in development at FromSoftware",
+            "check_status": "verified",
+            "confidence": 0.89,
+            "claim_type": "news",
+            "verification_reasons": ["supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_cyberpunk_sequel",
+        "title": "Cyberpunk 2077 sequel Project Orion enters full production",
+        "url": "https://www.pcgamer.com/cyberpunk-project-orion-production/",
+        "source_id": "pcgamer",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "pc",
+        "theme_section_candidates": ["pc"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 8.0,
+        "score": 76.0,
+        "story_score": 76.0,
+        "heat_score": 72.0,
+        "discussion_score": 46.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 46,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.pcgamer.com/cyberpunk-project-orion-production/"],
+        "source_language": "en",
+        "source_preference": "original_source_used",
+        "claims": [
+          {
+            "text": "Cyberpunk 2077 sequel Project Orion enters full production",
+            "check_status": "likely",
+            "confidence": 0.74,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_dei_controversy",
+        "title": "游戏行业DEI争议持续：多家工作室调整招聘政策",
+        "url": "https://www.gamersky.com/news/202606/dei-hiring-policy-changes.shtml",
+        "source_id": "gamersky",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "supplemental",
+        "theme_section_candidates": ["supplemental"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 4.0,
+        "score": 72.0,
+        "story_score": 72.0,
+        "heat_score": 66.0,
+        "discussion_score": 44.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 44
+        },
+        "source_urls": ["https://www.gamersky.com/news/202606/dei-hiring-policy-changes.shtml"],
+        "source_language": "zh",
+        "source_preference": "chinese_source_preferred",
+        "claims": [
+          {
+            "text": "游戏行业DEI争议持续：多家工作室调整招聘政策",
+            "check_status": "likely",
+            "confidence": 0.68,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_meme_screenshot",
+        "title": "玩家无厘头操作聊天截图被大量转载引发社区整活",
+        "url": "https://www.bilibili.com/video/player-crazy-meme-2026",
+        "source_id": "bilibili",
+        "candidate_type": "meme_gallery",
+        "candidate_lane": "main",
+        "theme_section": "supplemental",
+        "theme_section_candidates": ["supplemental"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 6.0,
+        "score": 70.0,
+        "story_score": 70.0,
+        "heat_score": 64.0,
+        "discussion_score": 58.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 58,
+          "has_direct_engagement": true
+        },
+        "source_urls": ["https://www.bilibili.com/video/player-crazy-meme-2026"],
+        "source_language": "zh",
+        "source_preference": "chinese_source_preferred",
+        "claims": [
+          {
+            "text": "玩家无厘头操作聊天截图被大量转载引发社区整活",
+            "check_status": "likely",
+            "confidence": 0.65,
+            "claim_type": "fact_candidate",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      },
+      {
+        "id": "story_indie_hit",
+        "title": "国产独立游戏《山河旅探》Steam销量突破200万",
+        "url": "https://www.gamersky.com/news/202606/shanhe-lvtan-2m-sales.shtml",
+        "source_id": "gamersky",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "supplemental",
+        "theme_section_candidates": ["supplemental", "pc"],
+        "category": "news",
+        "status": "ready",
+        "editorial_label": "证据支持，发布时保留来源",
+        "editorial_fit_score": 6.0,
+        "score": 68.0,
+        "story_score": 68.0,
+        "heat_score": 62.0,
+        "discussion_score": 36.0,
+        "discussion_level": "discussed",
+        "discussion_profile": {
+          "level": "discussed",
+          "score": 36
+        },
+        "source_urls": ["https://www.gamersky.com/news/202606/shanhe-lvtan-2m-sales.shtml"],
+        "source_language": "zh",
+        "source_preference": "chinese_source_preferred",
+        "claims": [
+          {
+            "text": "国产独立游戏《山河旅探》Steam销量突破200万",
+            "check_status": "likely",
+            "confidence": 0.70,
+            "claim_type": "news",
+            "verification_reasons": ["partial_supporting_evidence_overlap"]
+          }
+        ],
+        "publish_status": "unpublished"
+      }
+    ]
+  },
+  "expected_output": {
+    "theme_sections": {
+      "version": "0.1.0",
+      "per_section_limit": 20,
+      "final_per_section_limit": 10,
+      "sections": [
+        {
+          "id": "sony",
+          "label": "索尼",
+          "pool_count": 3,
+          "selected_count": 3,
+          "stories": [
+            {"id": "story_ps5_pro_price", "theme_section": "sony"},
+            {"id": "story_ps5_price_cut", "theme_section": "sony"},
+            {"id": "story_ps_plus_june", "theme_section": "sony"}
+          ]
+        },
+        {
+          "id": "nintendo",
+          "label": "任天堂",
+          "pool_count": 3,
+          "selected_count": 3,
+          "stories": [
+            {"id": "story_switch2_sales", "theme_section": "nintendo"},
+            {"id": "story_zelda_movie", "theme_section": "nintendo"},
+            {"id": "story_pokemon_gen10", "theme_section": "nintendo"}
+          ]
+        },
+        {
+          "id": "microsoft",
+          "label": "微软",
+          "pool_count": 3,
+          "selected_count": 3,
+          "stories": [
+            {"id": "story_xbox_handheld", "theme_section": "microsoft"},
+            {"id": "story_forza_horizon6", "theme_section": "microsoft"},
+            {"id": "story_gamepass_price", "theme_section": "microsoft"}
+          ]
+        },
+        {
+          "id": "pc",
+          "label": "PC",
+          "pool_count": 3,
+          "selected_count": 3,
+          "stories": [
+            {"id": "story_steam_deck2", "theme_section": "pc"},
+            {"id": "story_elden_ring2", "theme_section": "pc"},
+            {"id": "story_cyberpunk_sequel", "theme_section": "pc"}
+          ]
+        },
+        {
+          "id": "supplemental",
+          "label": "补充板块",
+          "pool_count": 3,
+          "selected_count": 3,
+          "stories": [
+            {"id": "story_dei_controversy", "theme_section": "supplemental"},
+            {"id": "story_meme_screenshot", "theme_section": "supplemental"},
+            {"id": "story_indie_hit", "theme_section": "supplemental"}
+          ]
+        }
+      ],
+      "selected_stories": [
+        {"id": "story_ps5_pro_price", "theme_section": "sony"},
+        {"id": "story_ps5_price_cut", "theme_section": "sony"},
+        {"id": "story_ps_plus_june", "theme_section": "sony"},
+        {"id": "story_switch2_sales", "theme_section": "nintendo"},
+        {"id": "story_zelda_movie", "theme_section": "nintendo"},
+        {"id": "story_pokemon_gen10", "theme_section": "nintendo"},
+        {"id": "story_xbox_handheld", "theme_section": "microsoft"},
+        {"id": "story_forza_horizon6", "theme_section": "microsoft"},
+        {"id": "story_gamepass_price", "theme_section": "microsoft"},
+        {"id": "story_steam_deck2", "theme_section": "pc"},
+        {"id": "story_elden_ring2", "theme_section": "pc"},
+        {"id": "story_cyberpunk_sequel", "theme_section": "pc"},
+        {"id": "story_dei_controversy", "theme_section": "supplemental"},
+        {"id": "story_meme_screenshot", "theme_section": "supplemental"},
+        {"id": "story_indie_hit", "theme_section": "supplemental"}
+      ]
+    },
+    "verification_notes": {
+      "per_section_coverage": "All 5 sections have stories selected — none are starved. Each section has 3 stories, which is within the per-section limits.",
+      "source_diversity_check": {
+        "source_counts_by_section": {
+          "sony": {"playstation_blog": 1, "gamersky": 1, "ign": 1},
+          "nintendo": {"nintendo": 1, "ign": 1, "gematsu": 1},
+          "microsoft": {"theverge": 1, "xbox_wire": 1, "ign": 1},
+          "pc": {"pcgamer": 2, "ign": 1},
+          "supplemental": {"gamersky": 1, "bilibili": 1, "gamersky": 1}
+        },
+        "no_single_source_dominance": true,
+        "comment": "IGN appears in multiple sections (sony/nintendo/microsoft/pc) but never dominates any single section. The maximum IGN share in any section is 1/3 = 33%, well under the 67% single-source dominance threshold."
+      },
+      "cross_section_source_distribution": {
+        "ign": 4,
+        "gamersky": 2,
+        "pcgamer": 2,
+        "bilibili": 1,
+        "playstation_blog": 1,
+        "nintendo": 1,
+        "theverge": 1,
+        "xbox_wire": 1,
+        "gematsu": 1
+      },
+      "no_section_starvation": true
+    }
+  }
+}

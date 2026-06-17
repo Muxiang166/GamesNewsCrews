@@ -1,0 +1,38 @@
+{
+  "harness_id": "H-PRM-001",
+  "issue_id": "PRM-001",
+  "title": "Prompt registry entries are explicit and replayable",
+  "description": "Every prompt used by an LLM or agent shadow task must be declared in prompt_registry.json with a stable prompt_id, version, owner stage, input artifacts, output artifact, output schema, fallback behavior, and harness cases.",
+  "input": {
+    "registry_path": "LangGraph/prompts/prompt_registry.json",
+    "prompt_id": "search.query_compression.v0"
+  },
+  "expected": {
+    "required_fields": [
+      "prompt_id",
+      "version",
+      "status",
+      "task_type",
+      "prompt_file",
+      "issue_ids",
+      "input_artifacts",
+      "output_artifact",
+      "output_schema",
+      "fallback",
+      "harness_cases"
+    ],
+    "status_values": [
+      "active",
+      "shadow",
+      "deferred"
+    ],
+    "fallback_required": true,
+    "default_enabled_must_be_boolean": true
+  },
+  "failure_examples": [
+    "prompt file exists but has no registry entry",
+    "registry entry points to a missing prompt file",
+    "LLM task has no fallback when JSON parsing fails",
+    "prompt output schema is described only in prose and not linked from the registry"
+  ]
+}

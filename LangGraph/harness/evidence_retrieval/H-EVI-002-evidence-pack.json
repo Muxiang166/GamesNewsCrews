@@ -1,0 +1,115 @@
+{
+  "_comment": "H-EVI-002: Verifies that build_context_packs joins a claim to its evidence chunks from the SQLite-mirrored evidence_chunks table. The fixture includes the full claim object, the SQL INSERT statements that would populate the evidence_chunks table, and the expected context pack output with evidence_scope, chunk_ids, and source_urls.",
+  "harness_id": "H-EVI-002-evidence-pack",
+  "description": "A claim about a Nintendo Switch 2 hardware announcement, paired with SQLite fixture rows for the evidence_chunks table. Validates that the context pack correctly links chunk_id -> chunk data, sets evidence_scope to 'candidate_url' when chunks come from the same URL, and populates source_urls.",
+  "inputs": {
+    "claim": {
+      "text": "任天堂 Switch 2 正式公布售价为399美元 将于2026年10月15日全球发售",
+      "story_id": "story_a1b2c3d4e5f6",
+      "source_urls": [
+        "https://www.nintendo.com/jp/switch2/index.html",
+        "https://www.ign.com/articles/nintendo-switch2-price-release-date-2026"
+      ],
+      "check_status": "unchecked",
+      "confidence": 0.0,
+      "claim_type": "news",
+      "extraction_status": "candidate_claim",
+      "evidence_chunk_ids": [
+        "nintendo-0-0",
+        "nintendo-0-1",
+        "ign-0-0"
+      ],
+      "missing_fields": [],
+      "metadata": {
+        "source_id": "nintendo",
+        "candidate_url": "https://www.nintendo.com/jp/switch2/index.html",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "heat_score": 95.0,
+        "discussion_score": 72.0,
+        "discussion_level": "trending",
+        "discussion_profile": {
+          "score": 72.0,
+          "level": "trending",
+          "platforms": ["bilibili", "weibo", "x"],
+          "has_discussion_evidence": true
+        },
+        "evidence_scope": "candidate_url",
+        "extractor": "deterministic_candidate_claim_v0"
+      }
+    },
+    "sqlite_evidence_chunks_fixture": {
+      "schema": "evidence_chunks (run_id text, chunk_id text, url text, source_id text, title text, published_at text, quote text, raw_json text, primary key (run_id, chunk_id))",
+      "insert_statements": [
+        "INSERT INTO evidence_chunks VALUES ('run_test_001', 'nintendo-0-0', 'https://www.nintendo.com/jp/switch2/index.html', 'nintendo', 'Nintendo Switch 2 正式発表', '2026-06-16T02:00:00+00:00', '任天堂株式会社は本日、Nintendo Switch 2を2026年10月15日に全世界で発売することを正式に発表しました。希望小売価格は399米ドル（日本円で49,980円）となります。', '{}');",
+        "INSERT INTO evidence_chunks VALUES ('run_test_001', 'nintendo-0-1', 'https://www.nintendo.com/jp/switch2/index.html', 'nintendo', 'Nintendo Switch 2 正式発表', '2026-06-16T02:00:00+00:00', 'Switch 2は前モデルから大幅に性能が向上し、4K出力対応、DLSS相当のアップスケーリング技術を搭載。Joy-Con 2は新たに磁気式ホール効果センサーを採用し、ドリフト問題を根本的に解決しています。', '{}');",
+        "INSERT INTO evidence_chunks VALUES ('run_test_001', 'ign-0-0', 'https://www.ign.com/articles/nintendo-switch2-price-release-date-2026', 'ign', 'Nintendo Switch 2 Price and Release Date Officially Revealed', '2026-06-16T03:00:00+00:00', 'Nintendo has officially confirmed that the Switch 2 will launch globally on October 15, 2026 at a price of $399 USD. Pre-orders will open on August 1, 2026.', '{}');",
+        "INSERT INTO evidence_chunks VALUES ('run_test_001', 'ign-0-1', 'https://www.ign.com/articles/nintendo-switch2-price-release-date-2026', 'ign', 'Nintendo Switch 2 Price and Release Date Officially Revealed', '2026-06-16T03:00:00+00:00', 'The Switch 2 features a custom NVIDIA Tegra T239 chip, 12GB of LPDDR5X RAM, and supports DLSS 3.5 for upscaling to 4K resolution when docked. Backward compatibility with original Switch games is confirmed.', '{}');"
+      ]
+    },
+    "candidate_snapshot": {
+      "title": "任天堂 Switch 2 正式公布售价为399美元 将于2026年10月15日全球发售",
+      "url": "https://www.nintendo.com/jp/switch2/index.html",
+      "source_id": "nintendo",
+      "candidate_type": "news",
+      "candidate_lane": "main",
+      "theme_section": "nintendo",
+      "heat_score": 95.0,
+      "discussion_score": 72.0,
+      "discussion_level": "trending",
+      "discussion_profile": {
+        "score": 72.0,
+        "level": "trending",
+        "platforms": ["bilibili", "weibo", "x"],
+        "has_discussion_evidence": true
+      },
+      "published_at": "2026-06-16T02:00:00+00:00",
+      "observed_at": "2026-06-16T03:00:00+00:00"
+    }
+  },
+  "expected_output": {
+    "context_pack": {
+      "candidate": {
+        "title": "任天堂 Switch 2 正式公布售价为399美元 将于2026年10月15日全球发售",
+        "url": "https://www.nintendo.com/jp/switch2/index.html",
+        "source_id": "nintendo",
+        "candidate_type": "news",
+        "candidate_lane": "main",
+        "theme_section": "nintendo",
+        "heat_score": 95.0,
+        "discussion_score": 72.0,
+        "discussion_level": "trending"
+      },
+      "evidence_chunk_ids": [
+        "nintendo-0-0",
+        "nintendo-0-1",
+        "ign-0-0"
+      ],
+      "evidence_scope": "candidate_url",
+      "evidence_sources": ["nintendo", "ign"],
+      "evidence_urls": [
+        "https://www.nintendo.com/jp/switch2/index.html",
+        "https://www.ign.com/articles/nintendo-switch2-price-release-date-2026"
+      ],
+      "evidence_quotes_min_length": 20,
+      "missing_fields": [],
+      "claim_chunk_link_matches": {
+        "nintendo-0-0": "https://www.nintendo.com/jp/switch2/index.html",
+        "nintendo-0-1": "https://www.nintendo.com/jp/switch2/index.html",
+        "ign-0-0": "https://www.ign.com/articles/nintendo-switch2-price-release-date-2026"
+      }
+    }
+  },
+  "validation_rules": {
+    "evidence_scope": "candidate_url",
+    "chunk_id_matches_claim_evidence_chunk_ids": true,
+    "all_chunks_have_url_field": true,
+    "all_chunks_have_source_id_field": true,
+    "candidate_url_in_source_urls": true,
+    "evidence_count": 3,
+    "evidence_from_two_sources": true,
+    "no_missing_fields": true,
+    "claim_type_is_news": true
+  }
+}

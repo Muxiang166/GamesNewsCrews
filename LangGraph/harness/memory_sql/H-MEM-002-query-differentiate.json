@@ -1,0 +1,77 @@
+{
+  "_comment": "MEM-002: The SQLite memory layer must support differentiated queries so that same-game old news, same-game new events, and same-event follow-ups are distinct and independently queryable. Overlapping results that blur these categories indicate a deduplication or indexing defect.",
+  "test": "H-MEM-002",
+  "layer": "memory_sql",
+  "scenario": {
+    "description": "The database contains three articles all referencing the same game 'Project Nebula': (a) a two-week-old news item about its delay, (b) a same-day announcement of a new DLC, and (c) a same-day follow-up article about the DLC's pricing. Queries must return each distinctly without cross-contamination.",
+    "input": {
+      "game": "Project Nebula",
+      "stored_articles": [
+        {
+          "id": "art-001",
+          "title": "Project Nebula Delayed to Q4 2026",
+          "published_at": "2026-06-02T10:00:00Z",
+          "category": "same_game_old_news",
+          "event_ref": "delay-q4-2026",
+          "body": "Developer postpones Project Nebula launch to Q4 2026 citing polish needs."
+        },
+        {
+          "id": "art-002",
+          "title": "Project Nebula Announces 'Echoes' DLC",
+          "published_at": "2026-06-16T09:00:00Z",
+          "category": "same_game_new_event",
+          "event_ref": "echoes-dlc-announce",
+          "body": "Studio reveals Echoes, a story expansion for Project Nebula arriving this fall."
+        },
+        {
+          "id": "art-003",
+          "title": "Project Nebula Echoes DLC Pricing and Release Window Detailed",
+          "published_at": "2026-06-16T14:00:00Z",
+          "category": "same_event_followup",
+          "event_ref": "echoes-dlc-announce",
+          "body": "The Echoes DLC will cost $19.99 and launch on October 15 alongside a free update."
+        }
+      ]
+    },
+    "expected_output": {
+      "query_same_game_old_news": {
+        "filter": "game = 'Project Nebula' AND category = 'same_game_old_news'",
+        "expected_ids": ["art-001"],
+        "count": 1
+      },
+      "query_same_game_new_event": {
+        "filter": "game = 'Project Nebula' AND category = 'same_game_new_event'",
+        "expected_ids": ["art-002"],
+        "count": 1
+      },
+      "query_same_event_followup": {
+        "filter": "game = 'Project Nebula' AND category = 'same_event_followup'",
+        "expected_ids": ["art-003"],
+        "count": 1
+      },
+      "query_all_project_nebula": {
+        "expected_ids": ["art-001", "art-002", "art-003"],
+        "count": 3,
+        "distinct_event_refs": ["delay-q4-2026", "echoes-dlc-announce"]
+      },
+      "query_echoes_dlc_event": {
+        "filter": "event_ref = 'echoes-dlc-announce'",
+        "expected_ids": ["art-002", "art-003"],
+        "count": 2,
+        "categories_present": ["same_game_new_event", "same_event_followup"]
+      }
+    },
+    "verification": {
+      "check": "differentiated_queries_return_exact_ids",
+      "must_not_overlap": {
+        "same_game_old_news": ["art-002", "art-003"],
+        "same_game_new_event": ["art-001", "art-003"],
+        "same_event_followup": ["art-001", "art-002"]
+      },
+      "event_ref_clustering": {
+        "echoes-dlc-announce": [2],
+        "delay-q4-2026": [1]
+      }
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "_comment": "H-CLU-002: A release date announcement and a character reveal for the same game (Final Fantasy VII Rebirth) should NOT be merged into the same story cluster. They are distinct news events — the dedup engine must produce two separate clusters. Confirms that entity signature overlap alone does not trigger merge without title/token alignment.",
+  "harness_id": "H-CLU-002-followup-not-duplicate",
+  "description": "Two context packs about Final Fantasy VII Rebirth: one announces the PC release date, the other reveals a new playable character (Cid). Both mention 'Final Fantasy VII Rebirth' in their entity signatures, but the normalized titles and concrete news facts are completely different. The deterministic deduplication should produce two separate story clusters, and the semantic review request should flag them for LLM review as same-entity-distinct-titles.",
+  "inputs": {
+    "context_packs": [
+      {
+        "candidate": {
+          "title": "Final Fantasy VII Rebirth PC release date announced for August 15 2026",
+          "url": "https://www.ign.com/articles/ff7-rebirth-pc-release-date-announced",
+          "source_id": "ign",
+          "snippet": "Square Enix announced that Final Fantasy VII Rebirth will launch on PC via Steam and Epic Games Store on August 15, 2026, with enhanced graphics options including ultrawide support and up to 120fps.",
+          "query": "Final Fantasy VII Rebirth PC release date",
+          "discovered_at": "2026-06-15T08:00:00+00:00",
+          "observed_at": "2026-06-15T07:00:00+00:00",
+          "heat_signals": {
+            "views": 320000,
+            "likes": 18000,
+            "comments": 3500,
+            "shares": 5200
+          },
+          "tags": ["official_news", "pc", "release_date", "hot_discussion"],
+          "heat_score": 85.0,
+          "candidate_type": "news",
+          "discussion_profile": {
+            "level": "trending",
+            "score": 68,
+            "has_direct_engagement": true,
+            "has_multi_platform_discussion": true
+          }
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_ff7_pc_001",
+            "url": "https://www.ign.com/articles/ff7-rebirth-pc-release-date-announced",
+            "quote": "Final Fantasy VII Rebirth is coming to PC on August 15, 2026. The PC version will support ultrawide resolutions and up to 120fps.",
+            "chunk_index": 0
+          }
+        ],
+        "evidence_scope": "candidate_url",
+        "missing_fields": []
+      },
+      {
+        "candidate": {
+          "title": "Cid Highwind confirmed as playable character in Final Fantasy VII Rebirth Part 3 teaser",
+          "url": "https://www.gematsu.com/news/ff7-rebirth-part3-cid-playable",
+          "source_id": "gematsu",
+          "snippet": "A new teaser for the third installment of the Final Fantasy VII Remake project confirms Cid Highwind will be a fully playable character with a redesigned combat style.",
+          "query": "Final Fantasy VII Rebirth Cid playable character",
+          "discovered_at": "2026-06-15T09:00:00+00:00",
+          "observed_at": "2026-06-15T08:30:00+00:00",
+          "heat_signals": {
+            "views": 180000,
+            "likes": 12000,
+            "comments": 2800,
+            "shares": 3100
+          },
+          "tags": ["official_news", "character_reveal", "final_fantasy", "hot_discussion"],
+          "heat_score": 78.0,
+          "candidate_type": "news",
+          "discussion_profile": {
+            "level": "discussed",
+            "score": 55,
+            "has_direct_engagement": true,
+            "has_multi_platform_discussion": true
+          }
+        },
+        "evidence": [
+          {
+            "chunk_id": "ev_ff7_cid_001",
+            "url": "https://www.gematsu.com/news/ff7-rebirth-part3-cid-playable",
+            "quote": "Square Enix confirmed Cid Highwind will be a playable party member in the upcoming third chapter, with a revamped spear combat system.",
+            "chunk_index": 0
+          }
+        ],
+        "evidence_scope": "candidate_url",
+        "missing_fields": []
+      }
+    ]
+  },
+  "expected_output": {
+    "story_clusters": [
+      {
+        "id": "story_pc_date_01",
+        "key": "title:news:final fantasy vii rebirth pc release date announced for august 15 2026",
+        "canonical_title": "Final Fantasy VII Rebirth PC release date announced for August 15 2026",
+        "candidate_count": 1,
+        "source_urls": [
+          "https://www.ign.com/articles/ff7-rebirth-pc-release-date-announced"
+        ],
+        "merge_reason": "normalized_title",
+        "cluster_role": "primary_event",
+        "entity_signatures": [
+          "Final Fantasy VII Rebirth"
+        ]
+      },
+      {
+        "id": "story_cid_02",
+        "key": "title:news:cid highwind confirmed as playable character",
+        "canonical_title": "Cid Highwind confirmed as playable character in Final Fantasy VII Rebirth Part 3 teaser",
+        "candidate_count": 1,
+        "source_urls": [
+          "https://www.gematsu.com/news/ff7-rebirth-part3-cid-playable"
+        ],
+        "merge_reason": "normalized_title",
+        "cluster_role": "primary_event",
+        "entity_signatures": [
+          "Final Fantasy VII Rebirth"
+        ]
+      }
+    ],
+    "dedup_semantic_review_requests": [
+      {
+        "request_id": "dedup_semantic_ff7review",
+        "task_type": "story_cluster_semantic_review",
+        "entity": "final fantasy vii rebirth",
+        "reason": "same_entity_distinct_titles",
+        "instruction": "Decide whether these clusters are duplicate reports, follow-up details, official confirmations, reactions, or unrelated similar events. Do not add facts.",
+        "candidate_story_cluster_ids": [
+          "story_pc_date_01",
+          "story_cid_02"
+        ],
+        "candidates": [
+          {
+            "story_cluster_id": "story_pc_date_01",
+            "canonical_title": "Final Fantasy VII Rebirth PC release date announced for August 15 2026",
+            "source_urls": [
+              "https://www.ign.com/articles/ff7-rebirth-pc-release-date-announced"
+            ]
+          },
+          {
+            "story_cluster_id": "story_cid_02",
+            "canonical_title": "Cid Highwind confirmed as playable character in Final Fantasy VII Rebirth Part 3 teaser",
+            "source_urls": [
+              "https://www.gematsu.com/news/ff7-rebirth-part3-cid-playable"
+            ]
+          }
+        ]
+      }
+    ],
+    "verification_notes": {
+      "not_merged": "The two candidates have completely different normalized titles ('final fantasy vii rebirth pc release date announced' vs 'cid highwind confirmed as playable character'). The deterministic dedup correctly does NOT merge them.",
+      "same_entity_flag": "Both clusters share the entity signature 'final fantasy vii rebirth'. This correctly triggers a semantic review request (same_entity_distinct_titles) so a downstream LLM or human reviewer can decide whether they should be grouped as follow-up updates to the same continuing story.",
+      "distinct_events": "Release date announcement and character reveal are distinct news events. They should remain as separate stories in the final briefing, possibly cross-referenced with a 'related' link."
+    }
+  }
+}

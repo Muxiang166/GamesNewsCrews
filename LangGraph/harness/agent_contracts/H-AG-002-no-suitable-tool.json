@@ -1,0 +1,65 @@
+{
+  "_comment": "AG-002: When the Agent evaluates all available tools and determines none are suitable for the requested task (e.g., all sources are blocked, all APIs return 403, or no tool matches the required capability), it MUST produce a `needs_user_action` notification with a clear explanation. It must NOT silently return an empty result, fabricate a fallback, or loop indefinitely retrying unsuitable tools.",
+  "test": "H-AG-002",
+  "layer": "agent_contracts",
+  "scenario": {
+    "description": "The Agent is tasked with fetching a press release from a corporate intranet URL. All available tools (search_web, fetch_url, query_memory) are unsuitable: search_web can't reach intranet, fetch_url gets 403 because the Agent has no corporate VPN, and query_memory has no cached copy. The Agent must recognize the dead end and emit a `needs_user_action` notification.",
+    "input": {
+      "task": "Fetch and summarize the press release at https://intranet.studio-z.example.com/press/2026/q2-earnings",
+      "available_tools": [
+        { "name": "search_web", "description": "Search the public web", "capabilities": ["public_web_search"] },
+        { "name": "fetch_url", "description": "Fetch a URL via HTTP GET", "capabilities": ["http_get"] },
+        { "name": "query_memory", "description": "Query local SQLite memory store", "capabilities": ["local_query"] }
+      ],
+      "tool_evaluation_results": [
+        {
+          "tool": "search_web",
+          "suitable": false,
+          "reason": "Intranet URLs are not indexed by public search engines"
+        },
+        {
+          "tool": "fetch_url",
+          "suitable": false,
+          "reason": "HTTP 403 Forbidden — corporate intranet requires VPN access not available to the Agent"
+        },
+        {
+          "tool": "query_memory",
+          "suitable": false,
+          "reason": "No cached copy of this URL exists in local memory store"
+        }
+      ],
+      "all_tools_evaluated": true,
+      "retry_attempts": 0
+    },
+    "expected_output": {
+      "notification": {
+        "type": "needs_user_action",
+        "severity": "blocking",
+        "message": "Unable to complete task: no suitable tool available to fetch intranet URL https://intranet.studio-z.example.com/press/2026/q2-earnings. All tools evaluated and rejected: search_web (not indexed), fetch_url (403 — VPN required), query_memory (no cached copy).",
+        "failed_tools": ["search_web", "fetch_url", "query_memory"],
+        "suggested_user_action": "Provide VPN access, upload the press release file manually, or add the document to the memory store.",
+        "task_id": "task-2026-06-16-002",
+        "timestamp": "2026-06-16T12:00:00Z"
+      },
+      "agent_state": "blocked_no_suitable_tool",
+      "must_not": [
+        "return an empty or null result without the needs_user_action notification",
+        "fabricate a summary from the URL alone",
+        "loop indefinitely retrying the same unsuitable tools",
+        "silently fail and proceed to the next pipeline step",
+        "hallucinate content for the article",
+        "downgrade to a non-blocking warning and continue"
+      ]
+    },
+    "verification": {
+      "check": "output_contains_needs_user_action_notification",
+      "notification_type": "needs_user_action",
+      "notification_severity": "blocking",
+      "all_tools_listed_as_failed": true,
+      "article_field": null,
+      "pipeline_state": "halted",
+      "no_fabricated_content_present": true,
+      "max_retry_loop_count": 0
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "_comment": "Harness case H-COL-001: FetchResult for a source that succeeds on the third attempt after two consecutive timeouts. Validates that the retry loop correctly records each attempt and that ok becomes true only after the final successful fetch.",
+  "source_id": "rss-gamespot",
+  "source_url": "https://www.gamespot.com/feeds/news/",
+  "fetched_at": "2026-06-16T10:00:00Z",
+  "ok": true,
+  "http_status": 200,
+  "attempts": 3,
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "timestamp": "2026-06-16T10:00:00Z",
+      "ok": false,
+      "error_type": "URLError",
+      "error_message": "timed out",
+      "error_detail": "HTTPSConnectionPool(host='www.gamespot.com', port=443): Read timed out. (read timeout=30)",
+      "retryable": true,
+      "backoff_seconds": 2.0
+    },
+    {
+      "attempt": 2,
+      "timestamp": "2026-06-16T10:00:32Z",
+      "ok": false,
+      "error_type": "URLError",
+      "error_message": "timed out",
+      "error_detail": "HTTPSConnectionPool(host='www.gamespot.com', port=443): Read timed out. (read timeout=30)",
+      "retryable": true,
+      "backoff_seconds": 4.0
+    },
+    {
+      "attempt": 3,
+      "timestamp": "2026-06-16T10:01:06Z",
+      "ok": true,
+      "http_status": 200,
+      "bytes_fetched": 124736,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "etag": "\"abc123def456\"",
+      "last_modified": "Mon, 16 Jun 2026 09:45:00 GMT"
+    }
+  ],
+  "total_elapsed_seconds": 66.2,
+  "final_url": "https://www.gamespot.com/feeds/news/"
+}

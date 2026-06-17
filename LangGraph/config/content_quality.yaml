@@ -1,0 +1,8 @@
+# Content quality gate thresholds.
+# These determine the gate status for each stage and the overall pipeline.
+# Scores >= pass: the stage/briefing passes quality gate.
+# Scores >= needs_review but < pass: the stage/briefing needs human review.
+# Scores < needs_review: the stage/briefing is blocked.
+gate_thresholds:
+  pass: 85
+  needs_review: 60

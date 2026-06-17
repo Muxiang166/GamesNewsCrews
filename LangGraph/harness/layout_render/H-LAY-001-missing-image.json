@@ -1,0 +1,41 @@
+{
+  "_comment": "LAY-001: When an article references an image URL that returns 404 or is unreachable, the renderer MUST leave a visible placeholder with an annotation describing what was expected — NOT attempt LLM-based image generation, NOT silently drop the element, and NOT substitute a generic thumbnail.",
+  "test": "H-LAY-001",
+  "layer": "layout_render",
+  "scenario": {
+    "description": "Article includes an <img> tag whose src resolves to HTTP 404. The layout renderer should detect the broken reference and inject a placeholder block with a human-readable annotation.",
+    "input": {
+      "article_markdown": "## Breaking: Major Studio Announces Sequel\n\n![Teaser poster](https://cdn.example.com/images/teaser-poster.jpg)\n\nThe studio released a cryptic teaser image alongside today's press release.",
+      "resolved_assets": {
+        "https://cdn.example.com/images/teaser-poster.jpg": {
+          "status": 404,
+          "content_type": null,
+          "bytes": 0,
+          "error": "HTTP 404 Not Found"
+        }
+      }
+    },
+    "expected_output": {
+      "placeholders": [
+        {
+          "original_src": "https://cdn.example.com/images/teaser-poster.jpg",
+          "alt_text": "Teaser poster",
+          "annotation": "Image unavailable (HTTP 404): Teaser poster",
+          "replacement_html": "<figure class=\"placeholder missing-image\" role=\"img\" aria-label=\"Image unavailable: Teaser poster\"><figcaption>[Missing image: Teaser poster — source returned 404]</figcaption></figure>"
+        }
+      ],
+      "must_not": [
+        "generate image via LLM",
+        "substitute a generic stock image",
+        "remove the <img> tag silently",
+        "fetch from an alternative CDN not specified in sources"
+      ]
+    },
+    "verification": {
+      "check": "rendered_output_contains_placeholder_annotation",
+      "annotation_must_reference": ["Teaser poster", "404"],
+      "no_llm_image_bytes_present": true,
+      "no_external_fetch_beyond_sources": true
+    }
+  }
+}
